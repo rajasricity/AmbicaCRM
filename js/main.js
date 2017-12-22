@@ -167,6 +167,36 @@ var swiper = new Swiper('.steps', { // Walkthrough
 
 // MixItUp
 $(function () {
+//My Customized Scripts
+$("#login").on("submit", function(e){
+    e.preventDefault();
+    var fdata = $("#login").serialize();
+    $.ajax({
+       url:"http://apkser.laksanasoft.com/",
+       data:fdata,
+       type:"GET",
+       beforeSend:function(){
+        $("#preloader").show();
+        $("#emsg").hide();
+       },
+       success: function(str){
+       $("#preloader").hide();
+       if(str != 'statusfalse'){
+        localStorage.setItem("Role",str.User_Role);
+        localStorage.setItem("User",str.User_Id);
+        localStorage.setItem("Emp_Code",str.Emp_Code);
+        localStorage.setItem("User_Name",str.User_Name);
+        if(localStorage.getItem('Role') == 'SR'){
+          location.href="Screen_SR.html";
+        }
+       }else{
+         $("#emsg").show();
+         $("#login")[0].reset();
+       }
+       }
+    });
+});
+//My Customized Scripts Close
     var layout = 'grid', // Store the current layout as a variable
         $container = $('#filter'), // Cache the MixItUp container
         $changeLayout = $('#ChangeLayout'); // Cache the changeLayout button

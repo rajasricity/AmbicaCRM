@@ -62,19 +62,22 @@
         <img src="img/logo.png" width="100%" alt="" class="animated bouncein delay-3">
         </div></center>
             <br>
-          <div class="input-field">
-            <i class="ion-android-contact prefix"></i> 
-            <input class="validate" id="login" type="text"> 
+        <form id="login">
+        <div class="input-field">
+            <i class="ion-android-contact prefix"></i>
+            <input class="validate" id="login" type="text" name="User_Name" required="required" tabindex="1">
             <label for="login">Username</label>
           </div>
 
           <div class="input-field" style="margin-bottom:20px;">
-            <i class="ion-android-lock prefix"></i> 
-            <input class="validate" id="login-psw" type="password"> 
+            <i class="ion-android-lock prefix"></i>
+            <input class="validate" id="login-psw" type="password" name="Password" required="required" tabindex="2">
             <label for="login-psw">Password</label>
           </div>
-          <button class="waves-effect waves-light btn-large accent-color block m-b-20 animated bouncein delay-2" style="width:100%">Login</button>
-          <div style="color:red;display:none" id="emsg"> adas</div>
+          <button type="submit" class="waves-effect waves-light btn-large accent-color block m-b-20 animated bouncein delay-2" style="width:100%">Login</button>
+        </form>
+          <div class="alert" id="emsg"> Wrong username/password.</div>
+          <center><img src="img/preloader.gif" style="width:35px;display:none" alt="" id="preloader"></center>
         </div>
 
       </div> 
@@ -96,5 +99,19 @@
     <script src="js/vendor/swiper.min.js"></script>
     <script src="js/vendor/materialize.min.js"></script>
     <script src="js/main.js"></script>
+    <script>
+        $(document).ready(function(){
+
+if(localStorage.getItem("Role") != null){
+  if(localStorage.getItem('Role') == 'SR'){
+    location.href="Screen_SR.html";
+  }
+}
+
+        });
+        function check(){
+          alert();
+        }
+    </script>
   </body>
 </html>
