@@ -167,6 +167,8 @@ var swiper = new Swiper('.steps', { // Walkthrough
 
 // MixItUp
 $(function () {
+$("#uname").html(localStorage.getItem("User_Name"));
+
 //My Customized Scripts
 $("#login").on("submit", function(e){
     e.preventDefault();
@@ -239,3 +241,42 @@ $("#login").on("submit", function(e){
     };
 
 });
+
+function showProducts(igroup){
+        var fdata = {"Group_Id":igroup};
+        $.ajax({
+           url:"http://apkser.laksanasoft.com/Login/getproductsbyid",
+           type:"GET",
+           data:fdata,
+           beforeSend:function(str){
+             $("#ploader").show();
+           },
+           success: function(data){
+             var toAppend='';
+            if(data.length > 0){
+              $("#ploader").hide();
+             $.each(data,function(i,o){
+               $("#sdata").show();
+//toAppend += '<li onclick="addItems(\''+o.Item_Code+'\',\''+o.Item_Name+'\',\''+o.No_Of_Unit_Per_Case+'\',\''+o.No_Of_Packs+'\',\''+o.Weight+'\',\''+o.Case_Units+'\',\''+o.Price+'\');">'+o.Item_Name+'</li>';
+toAppend += '<option value="'+o.Item_Code+','+o.Item_Name+','+o.No_Of_Unit_Per_Case+','+o.No_Of_Packs+','+o.Weight+','+o.Case_Units+','+o.Price+'">'+o.Item_Name+'</option>';
+                    });
+                    $("#product").append(toAppend);
+            }else{
+                $("#sdata").hide();
+            }
+           }
+        });
+    }
+    function doOperation(data){
+        console.log(data);
+      var p = data.split(",");
+      $("#sdata").hide();
+      $("#itemname").val(p[1]);
+      $("#qtyunits").val(p[2]);
+      $("#qtypacks").val(p[3]);
+      $("#price").val(p[6]);
+      $("#weight").val(p[4]);
+      $("#actualqtyunits").val(p[1]);
+      $("#perbox").val(p[1]);
+      $("#itemcode").val(p[0]);
+    }
