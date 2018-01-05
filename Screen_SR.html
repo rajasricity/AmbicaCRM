@@ -39,8 +39,12 @@
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/demo.css" />
+	<link rel="stylesheet" type="text/css" href="css/component1.css" />
     <script src="js/vendor/modernizr-2.7.1.min.js"></script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="js/polyfills.js"></script>
+    <!--<script src="js/demo1.js"></script>-->
+   <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawChart);
@@ -66,7 +70,7 @@
 
         chart.draw(data, google.charts.Bar.convertOptions(options));
       }
-    </script>
+    </script>-->
   </head>
   
   <body>
@@ -89,9 +93,26 @@
       <!-- Page Contents -->
       <div class="page">
         <!-- Your contents goes here! -->
-                                                  <br>
+<br>
 <div class="container">
-    <div class="row">
+
+<div class="component">
+				<!-- Start Nav Structure -->
+				<button class="cn-button" id="cn-button">+</button>
+				<div class="cn-wrapper" id="cn-wrapper">
+				    <ul>
+				<li><a href="Screen_SR.html" class="waves-effect"><i class="ion-android-home"></i></a></li>
+                <li><a href="CreateOrder_SR.html" class="waves-effect"><i class="ion-plus"></i></a></li>
+                <li><a href="View_Orders_SR.html" class="waves-effect"><i class="ion-eye"></i></a></li>
+				      <li><a href="#"><span class="icon-file"></span></a></li>
+				      <li><a href="#"><span class="icon-star"></span></a></li>
+				     </ul>
+				</div>
+				<div id="cn-overlay" class="cn-overlay"></div>
+				<!-- End Nav Structure -->
+			</div>
+
+    <!--<div class="row">
         <div class="col-xs-6" style="background-color: #8348B5;color:#fff;padding:10px;">
         <a href="CreateOrder_Sr.html" style="color:#fff;width:100%;text-decoration: none">
         <i class="ion-plus"></i><br>
@@ -118,12 +139,12 @@
         <span class="pull-right" style="font-size:11px;">REPORTS</span>
         </a>
         </div>
-    </div>
-    <div class="row">
+    </div>-->
+    <!--<div class="row">
         <div class="col-xs-12">
 <div id="barchart_material" style="width: 100%; height: 100%;"></div>
         </div>
-    </div>
+    </div>-->
 
     <!--<div class="row">
         <div class="col-xs-12">
@@ -183,8 +204,8 @@
           </div>
         </li>
         <li><a href="Screen_SR.html" class="waves-effect"><i class="ion-android-home"></i> Home</a></li>
-        <li><a href="#" class="waves-effect"><i class="ion-plus"></i> Create</a></li>
-        <li><a href="#" class="waves-effect"><i class="ion-eye"></i> View</a></li>
+        <li><a href="CreateOrder_SR.html" class="waves-effect"><i class="ion-plus"></i> Create</a></li>
+        <li><a href="View_Orders_SR.html" class="waves-effect"><i class="ion-eye"></i> View</a></li>
         <li><a href="#" class="waves-effect"><i class="ion-android-person"></i> Profile</a></li>
         <li><a href="#" class="waves-effect"><i class="ion-arrow-graph-down-left"></i> Reports</a></li>
       </ul>
@@ -345,6 +366,45 @@
         $(function(){
         $("#cntbody").height(screen.height-80);
        $("#uname").html(localStorage.getItem("User_Name"));
+
+        var button = document.getElementById('cn-button'),
+    wrapper = document.getElementById('cn-wrapper'),
+    overlay = document.getElementById('cn-overlay');
+
+  //open and close menu when the button is clicked
+  var open = false;
+  button.addEventListener('click', handler, false);
+  button.addEventListener('focus', handler, false);
+  wrapper.addEventListener('click', cnhandle, false);
+
+  function cnhandle(e){
+    e.stopPropagation();
+  }
+
+  function handler(e){
+    if (!e) var e = window.event;
+    e.stopPropagation();//so that it doesn't trigger click event on document
+
+      if(!open){
+        openNav();
+      }
+    else{
+        closeNav();
+      }
+  }
+  function openNav(){
+    open = true;
+      button.innerHTML = "-";
+      classie.add(overlay, 'on-overlay');
+      classie.add(wrapper, 'opened-nav');
+  }
+  function closeNav(){
+    open = false;
+    button.innerHTML = "+";
+    classie.remove(overlay, 'on-overlay');
+    classie.remove(wrapper, 'opened-nav');
+  }
+  document.addEventListener('click', closeNav);
     });
     </script>
   </body>

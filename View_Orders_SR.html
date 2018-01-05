@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title>Ambica Darbar Batti</title>
+    <meta name="description" content="Ambica Darbar Batti">
+    <meta name="Ambica Darbar Batti" content="True">
+    <meta name="MobileOptimized" content="320">
+   <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0"/>
+    <meta name="msapplication-TileColor" content="#222222">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- SEO: If mobile URL is different from desktop URL, add a canonical link to the desktop page -->
+    <!--
+    <link rel="canonical" href="http://www.example.com/" >
+    -->
+
+    <!-- For iOS web apps. Delete if not needed. https://github.com/h5bp/mobile-boilerplate/issues/94 -->
+    <!--
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="">
+    -->
+
+    <!-- Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,100' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+    <!-- Icons -->
+    <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" media="all" rel="stylesheet" type="text/css">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/materialize.min.css">
+    <link rel="stylesheet" href="css/swipebox.min.css">
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/demo.css" />
+	<link rel="stylesheet" type="text/css" href="css/component1.css" />
+    <script src="js/vendor/modernizr-2.7.1.min.js"></script>
+    <script src="js/polyfills.js"></script>
+    <!--<script src="js/demo1.js"></script>-->
+   <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Year', 'Sales', 'Expenses', 'Profit'],
+          ['2014', 1000, 400, 200],
+          ['2015', 1170, 460, 250],
+          ['2016', 660, 1120, 300],
+          ['2017', 1030, 540, 350]
+        ]);
+
+        var options = {
+          chart: {
+            title: 'My Performance',
+            subtitle: 'Sales, Expenses 2014-2017',
+          },
+          bars: 'horizontal' // Required for Material Bar Charts.
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('barchart_material'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+    </script>-->
+  </head>
+  
+  <body>
+        
+    <!-- Main Container -->
+    <div id="main" class="main">
+
+      <!-- Toolbar -->
+      <div id="toolbar" class="primary-color z-depth-1">
+        <div class="open-left" id="open-left" data-activates="slide-out-left">
+          <i class="ion-android-menu"></i>
+        </div>
+        <h1 class="title">Ambica CRM</h1>
+        <div class="open-right" id="open-right" data-activates="slide-out">
+&nbsp;
+        </div>
+      </div>
+      <!-- End of Toolbar -->
+
+      <!-- Page Contents -->
+      <div class="page">
+        <!-- Your contents goes here! -->
+<br>
+<div class="container" style="padding:0px;">
+<div class="table-responsive" style="padding:0px !important;">
+<table class="table table-bordered" style="">
+    <thead>
+        <tr style="background-color: #9C2B76">
+            <th>Order No</th>
+            <th>Customer</th>
+            <th>Distributor</th>
+            <th>Amount</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody style="background-color: #fff;color:#000"></tbody>
+</table>
+</div>
+
+
+<div class="component">
+				<!-- Start Nav Structure -->
+				<button class="cn-button" id="cn-button">+</button>
+				<div class="cn-wrapper" id="cn-wrapper">
+				    <ul>
+				<li><a href="Screen_SR.html" class="waves-effect"><i class="ion-android-home"></i></a></li>
+                <li><a href="CreateOrder_SR.html" class="waves-effect"><i class="ion-plus"></i></a></li>
+                <li><a href="View_Orders_SR.html" class="waves-effect"><i class="ion-eye"></i></a></li>
+				      <li><a href="#"><span class="icon-file"></span></a></li>
+				      <li><a href="#"><span class="icon-star"></span></a></li>
+				     </ul>
+				</div>
+				<div id="cn-overlay" class="cn-overlay"></div>
+				<!-- End Nav Structure -->
+			</div>
+</div>
+
+      </div> 
+      <!-- End of Page Contents -->
+
+      <!-- Sidebars -->
+      <!-- Left Sidebar -->
+      <ul id="slide-out-left" class="side-nav collapsible">
+        <li class="sidenav-avatar" style="background-color: #BCBADE">
+          <div class="opacity-overlay-gradient"></div>
+          <div class="bottom">
+            <img src="img/user.png" alt="" class="avatar">
+            <!-- Dropdown Trigger -->
+            <span class="dropdown-button waves-effect waves-light" data-activates="dropdown1">
+            <span id="uname"></span><i class="ion-android-arrow-dropdown right">
+            </i></span>
+          </div>
+        </li>
+        <li><a href="Screen_SR.html" class="waves-effect"><i class="ion-android-home"></i> Home</a></li>
+        <li><a href="CreateOrder_SR.html" class="waves-effect"><i class="ion-plus"></i> Create</a></li>
+        <li><a href="View_Orders_SR.html" class="waves-effect"><i class="ion-eye"></i> View</a></li>
+        <li><a href="#" class="waves-effect"><i class="ion-android-person"></i> Profile</a></li>
+        <li><a href="#" class="waves-effect"><i class="ion-arrow-graph-down-left"></i> Reports</a></li>
+      </ul>
+
+
+      <!-- End of Sidebars -->
+        
+    </div>
+    <!-- End of Main Container -->
+    
+    <!-- Scripts -->
+    <script src="js/vendor/jquery-2.1.0.min.js"></script>
+    <script src="bootstrap/js/bootstrap.js"></script>
+    <script src="js/helper.js"></script>
+    <script src="js/vendor/HeadsUp.js"></script>
+    <script src="js/vendor/chart.min.js"></script>
+    <script src="js/vendor/jquery.mixitup.min.js"></script>
+    <script src="js/vendor/jquery.swipebox.min.js"></script>
+    <script src="js/vendor/masonry.min.js"></script>
+    <script src="js/vendor/swiper.min.js"></script>
+    <script src="js/vendor/materialize.min.js"></script>
+    <script src="js/datatables.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        $(function(){
+        $("#cntbody").height(screen.height-80);
+        $("#uname").html(localStorage.getItem("User_Name"));
+
+ $.ajax({
+          url:"http://apkser.laksanasoft.com/Login/getorders",
+          data:{"Created_By":localStorage.getItem("User_Name")},
+          type:"GET",
+          success:function(data){
+                  var toAppend = '';
+                     $.each(data,function(i,o){
+                     console.log(o);
+                     toAppend += '<tr><td>'+o.Order_No+'</td><td>'+o.Customer_Code+'</td><td></td><td>'+o.Total_Order_Amount+'</td><td>'+o.Status+'</td></tr>';
+                    });
+
+                   $('table tbody').append(toAppend);
+
+          }
+          });
+
+        var button = document.getElementById('cn-button'),
+    wrapper = document.getElementById('cn-wrapper'),
+    overlay = document.getElementById('cn-overlay');
+
+  //open and close menu when the button is clicked
+  var open = false;
+  button.addEventListener('click', handler, false);
+  button.addEventListener('focus', handler, false);
+  wrapper.addEventListener('click', cnhandle, false);
+
+  function cnhandle(e){
+    e.stopPropagation();
+  }
+
+  function handler(e){
+    if (!e) var e = window.event;
+    e.stopPropagation();//so that it doesn't trigger click event on document
+
+      if(!open){
+        openNav();
+      }
+    else{
+        closeNav();
+      }
+  }
+  function openNav(){
+    open = true;
+      button.innerHTML = "-";
+      classie.add(overlay, 'on-overlay');
+      classie.add(wrapper, 'opened-nav');
+  }
+  function closeNav(){
+    open = false;
+    button.innerHTML = "+";
+    classie.remove(overlay, 'on-overlay');
+    classie.remove(wrapper, 'opened-nav');
+  }
+  document.addEventListener('click', closeNav);
+    });
+    </script>
+  </body>
+</html>
