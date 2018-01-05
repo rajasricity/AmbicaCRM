@@ -29,31 +29,31 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,100' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
     <!-- Icons -->
-    <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" media="all" rel="stylesheet" type="text/css">
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/animate.css">
+   <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/materialize.min.css">
     <link rel="stylesheet" href="css/swipebox.min.css">
     <link rel="stylesheet" href="css/swiper.min.css">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="css/easy-autocomplete.css">
-    <!-- <link rel="stylesheet" type="text/css" href="css/maps/easy-autocomplete.css"> -->
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="css/component1.css" />
     <script src="js/vendor/modernizr-2.7.1.min.js"></script>
     
   <style>
   .rnd{
     font-size: 1.6em;
-    width: 1.6em;
+    width: 2em;
     text-align: center;
-    line-height: 1.6em;
-    background: #666;
+    line-height: 2em;
+    background: #905FAA;
     color: #fff;
-    border-radius: 0.8em; /* or 50% width & line-height */
+    border-radius: 1em; /* or 50% width & line-height */
   }
-  #sdata{
+/*  #sdata{
    height:auto;
    max-height:200px;
    width:90%;
@@ -64,12 +64,12 @@
    padding:5px;
    background-color: #1C144D;
    display:none;
-  }
+  }*/
 
   </style>  
   </head>
   
-  <body>
+  <body style="background: #fff">
         
     <!-- Main Container -->
     <div id="main" class="main">
@@ -77,11 +77,11 @@
       <!-- Toolbar -->
       <div id="toolbar" class="primary-color z-depth-1">
         <div class="open-left" id="open-left" data-activates="slide-out-left">
-          <i class="ion-android-menu"></i>
+          <i class="fa fa-bars" style="font-size:20px;margin-top:22px;"></i>
         </div>
-       <h1 class="title">Ambica CRM</h1>
-        <div class="open-right">
-          <!--<i class="ion-android-person"></i>-->&nbsp;
+        <h1 class="title">Ambica CRM</h1>
+        <div class="open-right" id="open-right" data-activates="slide-out">
+          &nbsp;
         </div>
       </div>
       <!-- End of Toolbar -->
@@ -90,7 +90,7 @@
       <div class="page">
         <!-- Your contents goes here! -->
                                                   <br>
-<div class="container">
+<div class="container" style="padding:0px;">
 <form id="corder">
 <div id="first">
 <select name="dis" id="dis" class="form-control" onchange="showCustomers(this.value)" required>
@@ -107,10 +107,6 @@ DELIVERY DATE
 </div>
 
 <div id="second">
-<select name="group" id="group" class="form-control" onchange="showCustomers(this.value)">
-    <option value="">Select Group</option>
-</select>
-<br>
 <div class="table-responsive" style="z-index:999">
   <table class="table table-bordered" style="width:1000px">
 <tr></tr>
@@ -122,8 +118,8 @@ DELIVERY DATE
 <input type="submit" name="submit" class="btn btn-primary pull-right" value="CREATE ORDER"/>
 </form>
 </div>
-<div style="position: absolute;bottom:10px;right:10px;" class="rnd" id="add"><i class="ion-plus"></i></div>
-      </div> 
+      </div>
+
       <!-- End of Page Contents -->
 
       <!-- Sidebars -->
@@ -135,15 +131,19 @@ DELIVERY DATE
             <img src="img/user.png" alt="" class="avatar">
             <!-- Dropdown Trigger -->
             <span class="dropdown-button waves-effect waves-light" data-activates="dropdown1">
-            <span id="uname"></span><i class="ion-android-arrow-dropdown right">
-            </i></span>
+            <span id="uname"></span></span>
           </div>
         </li>
-        <li><a href="Screen_SR.html" class="waves-effect"><i class="ion-android-home"></i> Home</a></li>
-        <li><a href="CreateOrder_Sr.html" class="waves-effect"><i class="ion-plus"></i> Create</a></li>
-        <li><a href="View_Orders_SR.html" class="waves-effect"><i class="ion-eye"></i> View</a></li>
-        <li><a href="#" class="waves-effect"><i class="ion-android-person"></i> Profile</a></li>
-        <li><a href="#" class="waves-effect"><i class="ion-arrow-graph-down-left"></i> Reports</a></li>
+        <li><a href="Screen_SR.html" class="waves-effect">
+          <i class="fa fa-home" style="margin-top:4px;"></i> Home</a></li>
+        <li><a href="CreateOrder_Sr.html" class="waves-effect">
+        <i class="fa fa-edit" style="margin-top:4px;"></i> Create</a></li>
+        <li><a href="View_Orders_SR.html" class="waves-effect">
+        <i class="fa fa-eye" style="margin-top:4px;"></i> View</a></li>
+        <li><a href="#" class="waves-effect">
+        <i class="fa fa-user-circle-o" style="margin-top:4px;"></i> Profile</a></li>
+        <li><a href="#" class="waves-effect">
+        <i class="fa fa-bar-chart-o" style="margin-top:4px;"></i> Reports</a></li>
       </ul>
 
 <div id="itemModal" class="modal fade" role="dialog" style="width:100%;background-color: transparent;">
@@ -156,21 +156,27 @@ DELIVERY DATE
         <h4 class="modal-title">ADD PRODUCT</h4>
       </div>
       <div class="modal-body">
-
-      <input type="text" name="itemname" id="itemname" class="form-control" onkeyup="showProducts(this.value,document.getElementById('group').value);" placeholder="Type Product Name" style="width:260px" tabindex="1"/>
-<div id="sdata">
-    <ul id="ldata"></ul>
+<select name="group" id="group" class="form-control" onchange="showProducts(this.value)">
+    <option value="">Select Group</option>
+</select>
+<br>
+      <!-- <input type="text" name="itemname" id="itemname" class="form-control" onkeyup="showProducts(this.value,document.getElementById('group').value);" placeholder="Type Product Name" style="width:260px" tabindex="1"/> -->
+<div id="sdata" style="margin-bottom:10px;">
+<select name="product" id="product" class="form-control" onchange="doOperation(this.value)" tabindex="1">
+  <option value="">CHOOSE ITEM</option>
+</select>
 </div>
       <input type="number" name="qtycases" id="qtycases" class="form-control" placeholder="Quantity in Cases" tabindex="2" onblur="updatePrice(this.value);"/>
-      <input type="text" name="qtyunits" id="qtyunits" class="form-control" placeholder="Quantity in Units" tabindex="3"/>
-      <input type="text" name="qtypacks" id="qtypacks" class="form-control" placeholder="Quantity in Packs" tabindex="4"/>
-      <input type="text" name="price" id="price" class="form-control" placeholder="Price" tabindex="5"/>
-      <input type="text" name="weight" id="weight" class="form-control" placeholder="Weight in Kgs" tabindex="6"/>
-      <input type="text" name="actualqty" id="actualqtyqtyunits" class="form-control" placeholder="Actual Quantity" tabindex="7"/>
-      <input type="text" name="billedqty" id="billedqty" class="form-control" placeholder="Billed Quantity" tabindex="8"/>
-      <input type="text" name="rate" id="rate" class="form-control" placeholder="Rate" tabindex="9"/>
-      <input type="text" name="perbox" id="perbox" class="form-control" placeholder="Per Box" tabindex="10"/>
-      <input type="text" name="itemcode" id="itemcode" class="form-control" placeholder="Item Code" tabindex="11"/>
+      <input type="hidden" name="itemname" id="itemname" class="form-control" placeholder="Item Name"/>
+      <input type="hidden" name="qtyunits" id="qtyunits" class="form-control" placeholder="Quantity in Units"/>
+      <input type="hidden" name="qtypacks" id="qtypacks" class="form-control" placeholder="Quantity in Packs"/>
+      <input type="hidden" name="price" id="price" class="form-control" placeholder="Price"/>
+      <input type="hidden" name="weight" id="weight" class="form-control" placeholder="Weight in Kgs"/>
+    <input type="hidden" name="actualqty" id="actualqtyqtyunits" class="form-control" placeholder="Actual Quantity"/>
+      <input type="hidden" name="billedqty" id="billedqty" class="form-control" placeholder="Billed Quantity"/>
+      <input type="hidden" name="rate" id="rate" class="form-control" placeholder="Rate"/>
+      <input type="hidden" name="perbox" id="perbox" class="form-control" placeholder="Per Box"/>
+      <input type="hidden" name="itemcode" id="itemcode" class="form-control" placeholder="Item Code"/>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success" data-dismiss="modal" onclick="addData2Row();" style="margin-left:10px;">Add</button>
@@ -181,7 +187,11 @@ DELIVERY DATE
 
   </div>
 </div>
+
     </div>
+    <div style="position: absolute;bottom:15px;right:15px;" class="rnd" id="add">
+  <i class="fa fa-plus"></i>
+</div>
     <!-- End of Main Container -->
     
     <!-- Scripts -->
@@ -196,7 +206,6 @@ DELIVERY DATE
     <script src="js/vendor/swiper.min.js"></script>
     <script src="js/vendor/materialize.min.js"></script>
     <script src="js/main.js"></script>
-    <script src="css/jquery.easy-autocomplete.js"></script>
     <script>
         $(function(){
         $("#cby").val(localStorage.getItem("User_Name"));
@@ -217,16 +226,14 @@ DELIVERY DATE
               },
               success: function(str){
                 if(str.Success == 'True'){
-                    location.href='Screen_SR.html';
+                    location.href='View_Orders_SR.html';
                 }else{
                   alert(str.Success);
                 }
               }
            });
         });
-        $("#cntbody").height(screen.height-80);
         $("#uname").html(localStorage.getItem("User_Name"));
-        //$("#second").hide();
           $.ajax({
           url:"http://apkser.laksanasoft.com/Login/Getlist",
           data:{"Sales_Executive_Name":localStorage.getItem("User_Name")},
@@ -257,35 +264,6 @@ DELIVERY DATE
           }
           });
     });
-
-
-    var options = {
-  url: function(phrase) {
-    return "http://apkser.laksanasoft.com/Login/getproductsbygropid?phrase="+$("#group").val()+"Item_Name="+phrase;
-  },
-
-  getValue: function(element) {
-    $("#qtycases").val('10');
-    return element.Group_Name;
-  },
-
-  ajaxSettings: {
-    dataType: "json",
-    method: "GET",
-    data: {
-      dataType: "json"
-    }
-  },
-
-  preparePostData: function(data) {
-    data.phrase = $("#itemname").val();
-    return data;
-  },
-
-  requestDelay: 400
-};
-/*$("#itemname").easyAutocomplete(options);*/
-
     function showCustomers(cid){
     $.ajax({
           url:"http://apkser.laksanasoft.com/Login/getCustomer",
@@ -303,45 +281,36 @@ DELIVERY DATE
           });
 
     }
-    function showProducts(kword,igroup){
-      if(kword.length>2){
-        var fdata = {"Group_Id":igroup,"Item_Name":kword};
-        $.ajax({
-           url:"http://apkser.laksanasoft.com/Login/getproductsbygropid",
-           type:"GET",
-           data:fdata,
-           beforeSend:function(str){
-             $("#ploader").show();
-           },
-           success: function(data){
-             var toAppend='';
-            if(data.length > 0){
-              $("#ploader").hide();
-             $.each(data,function(i,o){
-               $("#sdata").show();
-                     toAppend += '<li onclick="addItems(\''+o.Item_Code+'\',\''+o.Item_Name+'\',\''+o.No_Of_Unit_Per_Case+'\',\''+o.No_Of_Packs+'\',\''+o.Weight+'\',\''+o.Case_Units+'\',\''+o.Price+'\');">'+o.Item_Name+'</li>';
-                    });
-                    $("#ldata").append(toAppend);
-            }else{
-                $("#sdata").hide();
-            }
-           }
-        });
-      }else{
-        $("#sdata").hide();
-      }
-    }
-    function showFirst(){
-      $("#second").hide();
-      $("#first").show();
-    }
-    function showSecond(){
-      $("#second").show();
-      $("#first").hide();
-    }
-    function showOptions(item){
-    $("#itemModal").modal("show");
-    }
+
+
+    // function showProducts(kword,igroup){
+    //   if(kword.length>2){
+    //     var fdata = {"Group_Id":igroup,"Item_Name":kword};
+    //     $.ajax({
+    //        url:"http://apkser.laksanasoft.com/Login/getproductsbygropid",
+    //        type:"GET",
+    //        data:fdata,
+    //        beforeSend:function(str){
+    //          $("#ploader").show();
+    //        },
+    //        success: function(data){
+    //          var toAppend='';
+    //         if(data.length > 0){
+    //           $("#ploader").hide();
+    //          $.each(data,function(i,o){
+    //            $("#sdata").show();
+    //                  toAppend += '<li onclick="addItems(\''+o.Item_Code+'\',\''+o.Item_Name+'\',\''+o.No_Of_Unit_Per_Case+'\',\''+o.No_Of_Packs+'\',\''+o.Weight+'\',\''+o.Case_Units+'\',\''+o.Price+'\');">'+o.Item_Name+'</li>';
+    //                 });
+    //                 $("#ldata").append(toAppend);
+    //         }else{
+    //             $("#sdata").hide();
+    //         }
+    //        }
+    //     });
+    //   }else{
+    //     $("#sdata").hide();
+    //   }
+    // }
 
     function addItems(icode,iname,nunits,npacks,weight,cunits,price){
       $("#sdata").hide();
@@ -350,7 +319,7 @@ DELIVERY DATE
       $("#qtypacks").val(npacks);
       $("#price").val(nunits);
       $("#weight").val(weight);
-      $("#actualqtyqtyunits").val(nunits);
+      $("#actualqtyunits").val(nunits);
       $("#perbox").val(cunits);
       $("#itemcode").val(icode);
       //console.log(icode+","+iname+","+nunits+","+npacks+","+weight+","+cunits+","+price);
@@ -361,9 +330,8 @@ DELIVERY DATE
       $("#billedqty").val(no);
     }
     function addData2Row(){
-var markup = '<tr><td width="20%"><input type="text" name="itemname" class="form-control" value="'+$("#itemname").val()+'"/></td><td width="10%"><input type="number" name="qtycases" class="form-control" value="'+$("#qtycases").val()+'"/></td><td width="10%"><input type="number" name="qtyunits" class="form-control" value="'+$("#qtyunits").val()+'"/></td><td width="10%"><input type="number" name="qtypacks" class="form-control" value="'+$("#qtypacks").val()+'"/></td><td width="10%"><input type="number" name="price" class="form-control" value="'+$("#price").val()+'"/></td><td width="10%"><input type="number" name="weight" class="form-control" value="'+$("#weight").val()+'"/></td><td width="10%"><input type="number" name="actualqty" class="form-control" value="'+$("#actualqtyqtyunits").val()+'"/></td><td width="5%"><input type="number" name="billedqty" class="form-control" value="'+$("#qtycases").val()+'"/></td><td width="5%"><input type="number" name="rate" class="form-control" value="'+$("#rate").val()+'"/></td><td width="10%"><input type="number" name="perbox" class="form-control" value="'+$("#perbox").val()+'"/></td><td width="10%"><input type="number" name="itemcode" class="form-control" value="'+$("#itemcode").val()+'"/></td></tr>';
+var markup = '<tr><td width="20%"><input type="text" name="itemname" class="form-control" value="'+$("#itemname").val()+'"/></td><td width="10%"><input type="number" name="qtycases" class="form-control" value="'+$("#qtycases").val()+'"/></td><td width="10%"><input type="number" name="qtyunits" class="form-control" value="'+$("#qtyunits").val()+'"/></td><td width="10%"><input type="number" name="qtypacks" class="form-control" value="'+$("#qtypacks").val()+'"/></td><td width="10%"><input type="number" name="price" class="form-control" value="'+$("#price").val()+'"/></td><td width="10%"><input type="number" name="weight" class="form-control" value="'+$("#weight").val()+'"/></td><td width="10%"><input type="number" name="actualqty" class="form-control" value="'+$("#actualqtyunits").val()+'"/></td><td width="5%"><input type="number" name="billedqty" class="form-control" value="'+$("#qtycases").val()+'"/></td><td width="5%"><input type="number" name="rate" class="form-control" value="'+$("#rate").val()+'"/></td><td width="10%"><input type="number" name="perbox" class="form-control" value="'+$("#qtycases").val()+'"/></td><td width="10%"><input type="number" name="itemcode" class="form-control" value="'+$("#itemcode").val()+'"/></td></tr>';
             $("table tbody").append(markup);
-
     }
     </script>
   </body>
