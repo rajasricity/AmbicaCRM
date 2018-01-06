@@ -168,7 +168,6 @@ var swiper = new Swiper('.steps', { // Walkthrough
 // MixItUp
 $(function () {
 $("#uname").html(localStorage.getItem("User_Name"));
-
 //My Customized Scripts
 $("#login").on("submit", function(e){
     e.preventDefault();
@@ -183,13 +182,13 @@ $("#login").on("submit", function(e){
        },
        success: function(str){
        $("#preloader").hide();
-       if(str != 'statusfalse'){
-        localStorage.setItem("Role",str.User_Role);
-        localStorage.setItem("User",str.User_Id);
+       if(str.Status == 'Active'){
+        localStorage.setItem("Role",'SR');
+        localStorage.setItem("User",str.Roll_Id);
         localStorage.setItem("Emp_Code",str.Emp_Code);
         localStorage.setItem("User_Name",str.User_Name);
         if(localStorage.getItem('Role') == 'SR'){
-          location.href="Screen_SR.html";
+        location.href="Screen_SR.html";
         }
        }else{
          $("#emsg").show();
