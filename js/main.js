@@ -167,7 +167,15 @@ var swiper = new Swiper('.steps', { // Walkthrough
 
 // MixItUp
 $(function () {
-$("#uname").html(localStorage.getItem("User_Name"));
+if(localStorage.getItem("User") == '00002'){
+    $("#uname").html(localStorage.getItem("User_Name"));
+}
+if(localStorage.getItem("User") == '00003'){
+    
+}
+if(localStorage.getItem("User") == '00006'){
+    $("#uname").html(localStorage.getItem("User_Name"));
+}
 //My Customized Scripts
 $("#login").on("submit", function(e){
     e.preventDefault();
@@ -181,15 +189,34 @@ $("#login").on("submit", function(e){
         $("#emsg").hide();
        },
        success: function(str){
+       console.log(str);
        $("#preloader").hide();
        if(str.Status == 'Active'){
+        if(str.Roll_Id == '00002'){
         localStorage.setItem("Role",'SR');
         localStorage.setItem("User",str.Roll_Id);
         localStorage.setItem("Emp_Code",str.Emp_Code);
         localStorage.setItem("User_Name",str.User_Name);
-        if(localStorage.getItem('Role') == 'SR'){
         location.href="Screen_SR.html";
-        }
+         }
+
+        if(str.Roll_Id == '00003'){
+        localStorage.setItem("Role",'SM');
+        localStorage.setItem("User",str.Roll_Id);
+        localStorage.setItem("Emp_Code",str.Emp_Code);
+        localStorage.setItem("User_Name",str.User_Name);
+        location.href="Screen_SM.html";
+         }
+
+        if(str.Roll_Id == '00006'){
+        localStorage.setItem("Role",'DB');
+        localStorage.setItem("User",str.Roll_Id);
+        //localStorage.setItem("Customer_Code",str.Customer_Code);
+        localStorage.setItem("Customer_Code",'11040');
+        localStorage.setItem("User_Name",str.Customer_Name);
+        location.href="Screen_DB.html";
+         }
+
        }else{
          $("#emsg").show();
          $("#login")[0].reset();
@@ -252,12 +279,14 @@ function showProducts(igroup){
            },
            success: function(data){
              var toAppend='';
+             $("#product").empty();
             if(data.length > 0){
               $("#ploader").hide();
              $.each(data,function(i,o){
                $("#sdata").show();
 //toAppend += '<li onclick="addItems(\''+o.Item_Code+'\',\''+o.Item_Name+'\',\''+o.No_Of_Unit_Per_Case+'\',\''+o.No_Of_Packs+'\',\''+o.Weight+'\',\''+o.Case_Units+'\',\''+o.Price+'\');">'+o.Item_Name+'</li>';
-toAppend += '<option value="'+o.Item_Code+','+o.Item_Name+','+o.No_Of_Unit_Per_Case+','+o.No_Of_Packs+','+o.Weight+','+o.Case_Units+','+o.Price+'">'+o.Item_Name+'</option>';
+//toAppend += '<option value="'+o.Item_Code+','+o.Item_Name+','+o.No_Of_Unit_Per_Case+','+o.No_Of_Packs+','+o.Weight+','+o.Case_Units+','+o.Price+'">'+o.Item_Name+'</option>';
+toAppend += '<option value="'+o.Item_Code+'">'+o.Item_Name+'</option>';
                     });
                     $("#product").append(toAppend);
             }else{
@@ -267,15 +296,32 @@ toAppend += '<option value="'+o.Item_Code+','+o.Item_Name+','+o.No_Of_Unit_Per_C
         });
     }
     function doOperation(data){
-        console.log(data);
-      var p = data.split(",");
-      $("#sdata").hide();
-      $("#itemname").val(p[1]);
-      $("#qtyunits").val(p[2]);
-      $("#qtypacks").val(p[3]);
-      $("#price").val(p[6]);
-      $("#weight").val(p[4]);
-      $("#actualqtyunits").val(p[1]);
-      $("#perbox").val(p[1]);
-      $("#itemcode").val(p[0]);
+      console.log(data);
+      var fdata = {"Item_Code":data};
+      $.ajax({
+         url:"http://apkser.laksanasoft.com/Login/getiteminfobyid",
+         data:fdata,
+         type:"GET",
+         success: function(str){
+           console.log(str);
+           $("#itemname").val(str[0].Item_Name);
+           $("#qtyunits").val(str[0].No_Of_Unit_Per_Case);
+           $("#qtypacks").val(str[0].No_Of_Packs);
+           $("#price").val(str[0].Price);
+           $("#weight").val(str[0].Weight);
+           $("#actualqty").val(str[0].No_Of_Unit_Per_Case);
+           $("#perbox").val(str[0].Per);
+           $("#taxrate").val(str[0].Taxrate);
+           $("#itemcode").val(data);
+         }
+      });
+
     }
+
+function logout(){
+localStorage.removeItem("Role");
+localStorage.removeItem("User");
+localStorage.removeItem("Emp_Code");
+localStorage.removeItem("User_Name");
+location.href="index.html";
+}
