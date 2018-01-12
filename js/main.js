@@ -211,8 +211,7 @@ $("#login").on("submit", function(e){
         if(str.Roll_Id == '00006'){
         localStorage.setItem("Role",'DB');
         localStorage.setItem("User",str.Roll_Id);
-        //localStorage.setItem("Customer_Code",str.Customer_Code);
-        localStorage.setItem("Customer_Code",'11040');
+        localStorage.setItem("Customer_Code",str.Customer_Id);
         localStorage.setItem("User_Name",str.Customer_Name);
         location.href="Screen_DB.html";
          }
