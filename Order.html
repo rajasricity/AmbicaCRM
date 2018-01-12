@@ -70,35 +70,29 @@
 <br>
 <div class="container" style="padding:0px;">
 
-<ul class="nav nav-tabs" style="background-color: #D0ABE4;">
-  <li class="active"><a data-toggle="tab" href="#input">INPUT</a></li>
-  <li><a data-toggle="tab" href="#output">OUTPUT</a></li>
-</ul>
-
-<div class="tab-content">
-  <div id="input" class="tab-pane fade in active">
-
-<div class="table-responsive" style="padding:0px !important;">
+<div class="table table-responsive">
 <table class="table table-bordered" id="my-example">
     <thead>
         <tr style="background-color: #9C2B76">
-            <th>Date</th>
-            <th>Order No</th>
-            <th>Customer</th>
-            <th>Order Type</th>
-            <th>Amount</th>
-            <th>Status</th>
+            <th>Item Code</th>
+            <th>Item Name</th>
+            <th>Qty in Cases</th>
+            <th>Qty in Packs</th>
+            <th>Price</th>
+            <th>Weight</th>
+            <th>Billed Qty</th>
+            <th>CGST</th>
+            <th>SGST</th>
+            <th>IGST</th>
+            <th>Rate</th>
         </tr>
     </thead>
     <tbody style="background-color: #fff;color:#000"></tbody>
 </table>
 </div>
-
-  </div>
-  <div id="output" class="tab-pane fade">
-    <h3>OUTPUT ORDERS</h3>
-    <p>LIST OF OUTPUT ORDERS</p>
-  </div>
+<CENTER>
+<button onclick="chageStatus();" class="btn btn-primary">GENERATE INVOICE</button>
+</CENTER>
 </div>
 
 <div class="component">
@@ -174,26 +168,22 @@ if(localStorage.getItem("Role") != null){
     location.href="index.html";
 }
 
-var table = $('#my-example').DataTable({
-         "bProcessing": true,
-         "sAjaxSource": "http://apkser.laksanasoft.com/Login/GetDistributor?Customer_Code="+localStorage.getItem("Customer_Code"),
-         "aoColumns": [
-               { mData: 'Created_Date' } ,
-               { mData: 'Order_No' },
-               { mData: 'Customer_Code' },
-               { mData: 'SaleOrdertype' },
-               { mData: 'Total_Order_Amount' },
-               { mData: 'Status' }
-             ],
-          "bLengthChange": false,
-      });
 
- $('#my-example tbody').on('click', 'tr', function () {
-        var data = table.row(this).data();
-        localStorage.setItem("Order",data.Order_No);
-        location.href="Order.html";
-    } );
+$.ajax({
+          url:"http://apkser.laksanasoft.com/Login/getorderitems",
+          data:{"Order_No":localStorage.getItem("Order")},
+          type:"GET",
+          success:function(data){
+            //console.log(data);
+                  var toAppend = '';
+                     $.each(data,function(i,o){
+                     toAppend += '<tr><td>'+o.Item_Code+'</td><td>'+o.Item_Name+'</td><td>'+o.Qty_In_Cases+'</td><td>'+o.Qty_In_Packs+'</td><td>'+o.Amount+'</td><td>'+o.Weight_In_Kgs+'</td><td>'+o.Billd_Qty+'</td><td>'+o.CGST_Amnt+'</td><td>'+o.SGST_Amt+'</td><td>'+o.IGST_Amt+'</td><td>'+o.Rate+'</td></tr>';
+                    });
 
+                   $('#my-example').append(toAppend);
+
+          }
+          });
 
 var button = document.getElementById('cn-button'),
     wrapper = document.getElementById('cn-wrapper'),
@@ -235,6 +225,19 @@ var button = document.getElementById('cn-button'),
   document.addEventListener('click', closeNav);
    
         });
-    </script>
+  function chageStatus(){
+
+   $.ajax({
+          url:"http://apkser.laksanasoft.com/Login/changestatus",
+          data:{"Order_No":localStorage.getItem("Order")},
+          type:"GET",
+          success:function(data){
+            if(data.Success == 'True'){
+              alert('Invoice Generated');
+            }
+          }
+          }); 
+  }
+  </script>
   </body>
 </html>

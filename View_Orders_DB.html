@@ -177,6 +177,14 @@ var button = document.getElementById('cn-button'),
     classie.remove(wrapper, 'opened-nav');
   }
   document.addEventListener('click', closeNav);
+
+// /Date(1504086189000)/
+// var dt = "/Date(1504086189000)/";
+//  var arr = dt.split(/[()]/);
+// var dt1 = arr[1];
+// //alert(typeof(parseInt(dt1)));
+// alert(new Date(parseInt(dt1)).toDateString());
+
  var table = $('#my-example').DataTable({
          "bProcessing": true,
          "sAjaxSource": "http://apkser.laksanasoft.com/Login/GetDistributor?Customer_Code="+localStorage.getItem("Customer_Code"),
@@ -190,21 +198,13 @@ var button = document.getElementById('cn-button'),
              ],
           "bLengthChange": false,
       });
+ $('#my-example tbody').on('click', 'tr', function () {
+        var data = table.row( this ).data();
+        //alert( 'You clicked on '+data[0]+'\'s row' );
+        localStorage.setItem("Order",data.Order_No);
+        location.href="Order.html";
+    } );
 
-          /*$.ajax({
-          url:"http://apkser.laksanasoft.com/Login/getorders",
-          data:{"Created_By":localStorage.getItem("User_Name")},
-          type:"GET",
-          success:function(data){
-                  var toAppend = '';
-                     $.each(data,function(i,o){
-                     console.log(o);
-                     toAppend += '<tr><td>'+o.Created_Date+'</td><td>'+o.Order_No+'</td><td>'+o.Customer_Name+'</td><td>'+o.SaleOrdertype+'</td><td>'+o.Total_Order_Amount+'</td><td>'+o.Status+'</td></tr>';
-                    });
-
-                   $('table tbody').append(toAppend);
-          }
-          });*/
 
     });
     </script>
