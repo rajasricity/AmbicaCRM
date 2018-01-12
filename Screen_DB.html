@@ -12,13 +12,27 @@
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
 
+    <!-- SEO: If mobile URL is different from desktop URL, add a canonical link to the desktop page -->
+    <!--
+    <link rel="canonical" href="http://www.example.com/" >
+    -->
+
+    <!-- For iOS web apps. Delete if not needed. https://github.com/h5bp/mobile-boilerplate/issues/94 -->
+    <!--
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="">
+    -->
+
     <!-- Fonts -->
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,100' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+    <!-- Icons -->
+
 
     <!-- Stylesheets -->
-     <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/materialize.min.css">
     <link rel="stylesheet" href="css/swipebox.min.css">
     <link rel="stylesheet" href="css/swiper.min.css">
@@ -27,7 +41,7 @@
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="bootstrap/css/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="css/demo.css" />
-    <link rel="stylesheet" type="text/css" href="css/component1.css" />
+	  <link rel="stylesheet" type="text/css" href="css/component1.css" />
     <script src="js/vendor/modernizr-2.7.1.min.js"></script>
     <script src="js/polyfills.js"></script>
     <link rel="stylesheet" type="text/css" href="css/datatable.css">
@@ -55,6 +69,15 @@
         <!-- Your contents goes here! -->
 <br>
 <div class="container" style="padding:0px;">
+
+<ul class="nav nav-tabs" style="background-color: #D0ABE4;">
+  <li class="active"><a data-toggle="tab" href="#input">INPUT</a></li>
+  <li><a data-toggle="tab" href="#output">OUTPUT</a></li>
+</ul>
+
+<div class="tab-content">
+  <div id="input" class="tab-pane fade in active">
+
 <div class="table-responsive" style="padding:0px !important;">
 <table class="table table-bordered" id="my-example">
     <thead>
@@ -71,24 +94,31 @@
 </table>
 </div>
 
-
-<div class="component">
-        <!-- Start Nav Structure -->
-        <button class="cn-button" id="cn-button">+</button>
-        <div class="cn-wrapper" id="cn-wrapper">
-            <ul>
-        <li><a href="Screen_SR.html" class="waves-effect"><i class="fa fa-home"></i></a></li>
-                <li><a href="CreateOrder_Sr.html" class="waves-effect"><i class="fa fa-edit"></i></a></li>
-                <li><a href="View_Orders_SR.html" class="waves-effect"><i class="fa fa-eye"></i></a></li>
-              <li><a href="#"><i class="fa fa-user-circle-o"></i></a></li>
-              <li><a href="#"><i class="fa fa-bar-chart-o"></i></a></li>
-             </ul>
-        </div>
-        <div id="cn-overlay" class="cn-overlay"></div>
-        <!-- End Nav Structure -->
-      </div>
+  </div>
+  <div id="output" class="tab-pane fade">
+    <h3>OUTPUT ORDERS</h3>
+    <p>LIST OF OUTPUT ORDERS</p>
+  </div>
 </div>
 
+<div class="component">
+				<!-- Start Nav Structure -->
+				<button class="cn-button" id="cn-button">+</button>
+				<div class="cn-wrapper" id="cn-wrapper">
+				    <ul>
+				      <li><a href="Screen_DB.html" class="waves-effect"><i class="fa fa-home"></i></a></li>
+                <li><a href="#" class="waves-effect"><i class="fa fa-edit"></i></a></li>
+                <li><a href="View_Orders_DB.html" class="waves-effect"><i class="fa fa-eye"></i></a></li>
+				      <li><a href="#"><i class="fa fa-user-circle-o"></i></a></li>
+				      <li><a href="#"><i class="fa fa-bar-chart-o"></i></a></li>
+				     </ul>
+				</div>
+				<div id="cn-overlay" class="cn-overlay"></div>
+				<!-- End Nav Structure -->
+			</div>
+
+    
+</div>
       </div> 
       <!-- End of Page Contents -->
 
@@ -104,21 +134,20 @@
             <span id="uname"></span></span>
           </div>
         </li>
-        <li><a href="Screen_SR.html" class="waves-effect">
+        <li><a href="Screen_DB.html" class="waves-effect">
           <i class="fa fa-home" style="margin-top:4px;"></i> Home</a></li>
-        <li><a href="CreateOrder_Sr.html" class="waves-effect">
+        <li><a href="#" class="waves-effect">
         <i class="fa fa-edit" style="margin-top:4px;"></i> Create</a></li>
-        <li><a href="View_Orders_SR.html" class="waves-effect">
+        <li><a href="View_Orders_DB.html" class="waves-effect">
         <i class="fa fa-eye" style="margin-top:4px;"></i> View</a></li>
         <li><a href="#" class="waves-effect">
         <i class="fa fa-user-circle-o" style="margin-top:4px;"></i> Profile</a></li>
         <li><a href="#" class="waves-effect">
         <i class="fa fa-bar-chart-o" style="margin-top:4px;"></i> Reports</a></li>
+        <li><a href="javascript:;" class="waves-effect" onclick="logout();">
+        <i class="fa fa-arrow-left" style="margin-top:4px;"></i> Logout</a></li>
       </ul>
 
-
-      <!-- End of Sidebars -->
-        
     </div>
     <!-- End of Main Container -->
     
@@ -134,15 +163,31 @@
     <script src="js/vendor/swiper.min.js"></script>
     <script src="js/vendor/materialize.min.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/datatables.js"></script>
+     <script src="js/datatables.js"></script>
     <script>
         $(function(){
-// /Date(1504086189000)/
-// var dt = "/Date(1504086189000)/";
-//  var arr = dt.split(/[()]/);
-// var dt1 = arr[1];
-// //alert(typeof(parseInt(dt1)));
-// alert(new Date(parseInt(dt1)).toDateString());
+if(localStorage.getItem("Role") != null){
+  /*if(localStorage.getItem('Role') == 'SR'){
+    location.href="Screen_SR.html";
+  }*/
+}else{
+    location.href="index.html";
+}
+
+var table = $('#my-example').DataTable({
+         "bProcessing": true,
+         "sAjaxSource": "http://apkser.laksanasoft.com/Login/GetDistributor?Customer_Code="+localStorage.getItem("Customer_Code"),
+         "aoColumns": [
+               { mData: 'Created_Date' } ,
+               { mData: 'Order_No' },
+               { mData: 'Customer_Code' },
+               { mData: 'SaleOrdertype' },
+               { mData: 'Total_Order_Amount' },
+               { mData: 'Status' }
+             ],
+          "bLengthChange": false,
+      });
+
 var button = document.getElementById('cn-button'),
     wrapper = document.getElementById('cn-wrapper'),
     overlay = document.getElementById('cn-overlay');
@@ -181,37 +226,8 @@ var button = document.getElementById('cn-button'),
     classie.remove(wrapper, 'opened-nav');
   }
   document.addEventListener('click', closeNav);
-
- var table = $('#my-example').DataTable({
-         "bProcessing": true,
-         "sAjaxSource": "http://apkser.laksanasoft.com/Login/getorders?Created_By="+localStorage.getItem("User_Name"),
-         "aoColumns": [
-               { mData: 'Created_Date' } ,
-               { mData: 'Order_No' },
-               { mData: 'Customer_Code' },
-               { mData: 'SaleOrdertype' },
-               { mData: 'Total_Order_Amount' },
-               { mData: 'Status' }
-             ],
-          "bLengthChange": false,
-      });
-
-          /*$.ajax({
-          url:"http://apkser.laksanasoft.com/Login/getorders",
-          data:{"Created_By":localStorage.getItem("User_Name")},
-          type:"GET",
-          success:function(data){
-                  var toAppend = '';
-                     $.each(data,function(i,o){
-                     console.log(o);
-                     toAppend += '<tr><td>'+o.Created_Date+'</td><td>'+o.Order_No+'</td><td>'+o.Customer_Name+'</td><td>'+o.SaleOrdertype+'</td><td>'+o.Total_Order_Amount+'</td><td>'+o.Status+'</td></tr>';
-                    });
-
-                   $('table tbody').append(toAppend);
-          }
-          });*/
-
-    });
+   
+        });
     </script>
   </body>
 </html>

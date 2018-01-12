@@ -77,9 +77,9 @@
         <button class="cn-button" id="cn-button">+</button>
         <div class="cn-wrapper" id="cn-wrapper">
             <ul>
-        <li><a href="Screen_SR.html" class="waves-effect"><i class="fa fa-home"></i></a></li>
-                <li><a href="CreateOrder_Sr.html" class="waves-effect"><i class="fa fa-edit"></i></a></li>
-                <li><a href="View_Orders_SR.html" class="waves-effect"><i class="fa fa-eye"></i></a></li>
+              <li><a href="Screen_DB.html" class="waves-effect"><i class="fa fa-home"></i></a></li>
+                <li><a href="#" class="waves-effect"><i class="fa fa-edit"></i></a></li>
+                <li><a href="View_Orders_DB.html" class="waves-effect"><i class="fa fa-eye"></i></a></li>
               <li><a href="#"><i class="fa fa-user-circle-o"></i></a></li>
               <li><a href="#"><i class="fa fa-bar-chart-o"></i></a></li>
              </ul>
@@ -104,16 +104,18 @@
             <span id="uname"></span></span>
           </div>
         </li>
-        <li><a href="Screen_SR.html" class="waves-effect">
+        <li><a href="Screen_DB.html" class="waves-effect">
           <i class="fa fa-home" style="margin-top:4px;"></i> Home</a></li>
-        <li><a href="CreateOrder_Sr.html" class="waves-effect">
+        <li><a href="#" class="waves-effect">
         <i class="fa fa-edit" style="margin-top:4px;"></i> Create</a></li>
-        <li><a href="View_Orders_SR.html" class="waves-effect">
+        <li><a href="View_Orders_DB.html" class="waves-effect">
         <i class="fa fa-eye" style="margin-top:4px;"></i> View</a></li>
         <li><a href="#" class="waves-effect">
         <i class="fa fa-user-circle-o" style="margin-top:4px;"></i> Profile</a></li>
         <li><a href="#" class="waves-effect">
         <i class="fa fa-bar-chart-o" style="margin-top:4px;"></i> Reports</a></li>
+        <li><a href="javascript:;" class="waves-effect" onclick="logout();">
+        <i class="fa fa-arrow-left" style="margin-top:4px;"></i> Logout</a></li>
       </ul>
 
 
@@ -137,12 +139,6 @@
     <script src="js/datatables.js"></script>
     <script>
         $(function(){
-// /Date(1504086189000)/
-// var dt = "/Date(1504086189000)/";
-//  var arr = dt.split(/[()]/);
-// var dt1 = arr[1];
-// //alert(typeof(parseInt(dt1)));
-// alert(new Date(parseInt(dt1)).toDateString());
 var button = document.getElementById('cn-button'),
     wrapper = document.getElementById('cn-wrapper'),
     overlay = document.getElementById('cn-overlay');
@@ -181,10 +177,9 @@ var button = document.getElementById('cn-button'),
     classie.remove(wrapper, 'opened-nav');
   }
   document.addEventListener('click', closeNav);
-
  var table = $('#my-example').DataTable({
          "bProcessing": true,
-         "sAjaxSource": "http://apkser.laksanasoft.com/Login/getorders?Created_By="+localStorage.getItem("User_Name"),
+         "sAjaxSource": "http://apkser.laksanasoft.com/Login/GetDistributor?Customer_Code="+localStorage.getItem("Customer_Code"),
          "aoColumns": [
                { mData: 'Created_Date' } ,
                { mData: 'Order_No' },
