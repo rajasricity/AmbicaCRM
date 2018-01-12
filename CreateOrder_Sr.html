@@ -129,6 +129,7 @@ DELIVERY DATE
 <input type="hidden" name="company" value="5"/>
 <input type="hidden" name="cby" id="cby" value=""/>
 <input type="submit" name="submit" class="btn btn-primary" value="CREATE ORDER"/>
+<center><img src="img/preloader.gif" style="width:40px;height:40px;display:none" id="loader"/></center>
 </form>
 </div>
       </div>
@@ -234,15 +235,21 @@ DELIVERY DATE
               data:fdata,
               type:"GET",
               beforeSend:function(){
-
+                $("#loader").show();
               },
               success: function(str){
+                $("#loader").hide();
+                //console.log(str);
                 if(str.Success == 'True'){
-                    location.href='View_Orders_SR.html';
+                location.href='View_Orders_SR.html';
                 }else{
                   alert(str.Success);
                 }
-              }
+              },
+              error: function(jqXHR, status, error){
+            $("#loader").hide();
+            alert(jqHXR+" -- "+status+" -- "+error);
+       }
            });
         });
         $("#uname").html(localStorage.getItem("User_Name"));
