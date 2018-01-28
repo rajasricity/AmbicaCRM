@@ -1,6 +1,6 @@
 var server;
 $(function(){
-	server = "http://localhost:2800/ambica/";
+	server = "http://ambicamobile.laksanasoft.com/mobile/";
 	connect();
 $("#srleft").load(server+"srsidebar.php");
 $("#dbleft").load(server+"dbsidebar.php");
