@@ -192,7 +192,6 @@ if(localStorage.getItem("Role") != null){
 //              ],
 //           "bLengthChange": false,
 //       });
-
 var table = $('#my-example').DataTable({
          "bProcessing": true,
          "sAjaxSource": server+"getInputOrders.php?Customer_Code="+localStorage.getItem("User"),
@@ -206,7 +205,6 @@ var table = $('#my-example').DataTable({
                { mData: 'Delivery_Dt' },
                { mData: 'Status' }
              ],
-             "aaSorting": [[ 0, "desc" ]],
           "bLengthChange": false,
       });
 
@@ -215,7 +213,7 @@ var table = $('#my-example').DataTable({
         localStorage.setItem("Order",data.Order_No);
         location.href="Order.html";
     } );
-var table = $('#my-example1').DataTable({
+var table1 = $('#my-example1').DataTable({
          "bProcessing": true,
          "sAjaxSource": server+"getOutputOrders.php?Customer_Code="+localStorage.getItem("Customer_Code"),
          "aoColumns": [
@@ -224,7 +222,6 @@ var table = $('#my-example1').DataTable({
                { mData: 'Total_Order_Amount' },
                { mData: 'Status' }
              ],
-             "aaSorting": [[ 0, "desc" ]],
               "bLengthChange": false,
       });
 
