@@ -45,10 +45,28 @@
     <script src="js/vendor/modernizr-2.7.1.min.js"></script>
     <script src="js/polyfills.js"></script>
     <link rel="stylesheet" type="text/css" href="css/datatable.css">
+    <style>
+      .rnd{
+    font-size: 1.6em;
+    width: 2em;
+    text-align: center;
+    line-height: 2em;
+    background: #905FAA;
+    color: #fff;
+    border-radius: 1em; /* or 50% width & line-height */
+    position: absolute;
+    bottom:15px;
+    right:15px;
+    z-index: 9999;
+  }
+
+    </style>
   </head>
   
   <body>
-        
+<div class="rnd" id="add">
+  <i class="fa fa-plus"></i>
+</div>       
     <!-- Main Container -->
     <div id="main" class="main">
 
@@ -70,6 +88,8 @@
 <br>
 <div class="container" style="padding:0px;">
 
+<form id="corder">
+<input type="hidden" name="oid" id="oid"/>
 <div class="table table-responsive">
 <table class="table table-bordered" id="my-example">
     <thead>
@@ -85,14 +105,23 @@
             <th>SGST</th>
             <th>IGST</th>
             <th>Rate</th>
+            <th>Del</th>
         </tr>
     </thead>
     <tbody style="background-color: #fff;color:#000"></tbody>
 </table>
+<br>
 </div>
+<center><img src="img/preloader.gif" style="width:30px;height:30px;display:none" id="loader"></center>
 <CENTER>
-<button onclick="chageStatus();" class="btn btn-primary">GENERATE INVOICE</button>
+<!-- <button onclick="chageStatus();" class="btn btn-primary">GENERATE INVOICE</button> -->
+<input type="submit" name="submit" class="btn btn-primary pull-right" value="GENERATE INVOICE" id="gb"/>
 </CENTER>
+</form>
+
+
+
+
 </div>
 
 <div class="component">
@@ -128,19 +157,49 @@
             <span id="uname"></span></span>
           </div>
         </li>
-        <li><a href="Screen_DB.html" class="waves-effect">
-          <i class="fa fa-home" style="margin-top:4px;"></i> Home</a></li>
-        <li><a href="#" class="waves-effect">
-        <i class="fa fa-edit" style="margin-top:4px;"></i> Create</a></li>
-        <li><a href="View_Orders_DB.html" class="waves-effect">
-        <i class="fa fa-eye" style="margin-top:4px;"></i> View</a></li>
-        <li><a href="#" class="waves-effect">
-        <i class="fa fa-user-circle-o" style="margin-top:4px;"></i> Profile</a></li>
-        <li><a href="#" class="waves-effect">
-        <i class="fa fa-bar-chart-o" style="margin-top:4px;"></i> Reports</a></li>
-        <li><a href="javascript:;" class="waves-effect" onclick="logout();">
-        <i class="fa fa-arrow-left" style="margin-top:4px;"></i> Logout</a></li>
+        <div id="dbleft"></div>
       </ul>
+
+<div id="itemModal" class="modal fade" role="dialog" style="width:100%;background-color: transparent;">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content" style="padding:0px;">
+      <div class="modal-header" style="background-color: #905FAA;color:#fff">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">ADD PRODUCT</h4>
+      </div>
+      <div class="modal-body">
+<select name="group" id="group" class="form-control" onchange="showProducts(this.value)">
+    <option value="">Select Group</option>
+</select>
+<br>
+<div id="sdata" style="margin-bottom:10px;">
+<select name="product" id="product" class="form-control" onchange="doOperationDB(this.value)" tabindex="1">
+  <option value="">CHOOSE ITEM</option>
+</select>
+</div>
+      <input type="text" name="qty" id="qty" class="form-control" placeholder="Quantity" onblur="updatePrice(this.value);"/>
+      <input type="text" name="itemname" id="itemname" class="form-control" placeholder="Item Name"/>
+      <input type="text" name="qtycases" id="qtycases" class="form-control" placeholder="Quantity in Cases" tabindex="2"/>
+      <input type="hidden" name="qtypacks" id="qtypacks" class="form-control" placeholder="Quantity in Packs"/>
+      <input type="hidden" name="price" id="price" class="form-control" placeholder="Price"/>
+      <input type="hidden" name="weight" id="weight" class="form-control" placeholder="Weight in Kgs"/>
+      <input type="hidden" name="billedqty" id="billedqty" class="form-control" placeholder="Billed Quantity"/>
+      <input type="hidden" name="taxrate" id="taxrate" class="form-control" placeholder="Tax Rate"/>
+      <input type="hidden" name="rate" id="rate" class="form-control" placeholder="Rate"/>
+      <input type="hidden" name="perbox" id="perbox" class="form-control" placeholder="Per Box"/>
+      <input type="text" name="itemcode" id="itemcode" class="form-control" placeholder="Item Code"/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal" onclick="addData2Row();" style="margin-left:10px;">Add</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <img src="img/preloader.gif" style="width:20px;height:20px;display:none" id="ploader">
+      </div>
+    </div>
+
+  </div>
+</div>
 
     </div>
     <!-- End of Main Container -->
@@ -158,6 +217,7 @@
     <script src="js/vendor/materialize.min.js"></script>
     <script src="js/main.js"></script>
      <script src="js/datatables.js"></script>
+     <script src="js/custome.js"></script>
     <script>
         $(function(){
 if(localStorage.getItem("Role") != null){
@@ -168,16 +228,37 @@ if(localStorage.getItem("Role") != null){
     location.href="index.html";
 }
 
+$("#oid").val(localStorage.getItem("Order"));
+$("#add").on('click', function(e){
+           e.preventDefault();
+           $("#itemModal").modal("show");
+        });
+
 
 $.ajax({
-          url:"http://apkser.laksanasoft.com/Login/getorderitems",
+          url:server+"getStatusByOrder.php",
           data:{"Order_No":localStorage.getItem("Order")},
-          type:"GET",
+          type:"POST",
+          beforeSend: function(){
+           $("#ploader").show();
+          },
+          success:function(str){
+            if(str.Status == 'Invoiced'){
+$("#add").hide();
+$("#gb").hide();
+$.ajax({
+          url:server+"getInvoiceData.php",
+          data:{"Invoice_No":str.Invno},
+          type:"POST",
+          beforeSend: function(){
+           $("#ploader").show();
+          },
           success:function(data){
+            $("#ploader").hide();
             //console.log(data);
                   var toAppend = '';
                      $.each(data,function(i,o){
-                     toAppend += '<tr><td>'+o.Item_Code+'</td><td>'+o.Item_Name+'</td><td>'+o.Qty_In_Cases+'</td><td>'+o.Qty_In_Packs+'</td><td>'+o.Amount+'</td><td>'+o.Weight_In_Kgs+'</td><td>'+o.Billd_Qty+'</td><td>'+o.CGST_Amnt+'</td><td>'+o.SGST_Amt+'</td><td>'+o.IGST_Amt+'</td><td>'+o.Rate+'</td></tr>';
+                        toAppend += '<tr><td>'+o.Item_Code+'</td><td>'+o.Item_Name+'</td><td>'+o.Qty_In_Cases+'</td><td>'+o.Qty_In_Packs+'</td><td>'+o.Amount+'</td><td>'+o.Weight_In_Kgs+'</td><td>'+o.Billd_Qty+'</td><td>'+o.CGST_Amnt+'</td><td>'+o.SGST_Amnt+'</td><td>'+o.IGST_Amnt+'</td><td>'+o.Price+'</td><td></td></tr>';
                     });
 
                    $('#my-example').append(toAppend);
@@ -185,6 +266,97 @@ $.ajax({
           }
           });
 
+            }else{
+
+$.ajax({
+          url:server+"getOrderById.php",
+          data:{"Order_No":localStorage.getItem("Order")},
+          type:"POST",
+          beforeSend: function(){
+           $("#ploader").show();
+          },
+          success:function(data){
+            $("#ploader").hide();
+            //console.log(data);
+                  var toAppend = '';
+                     $.each(data,function(i,o){
+                       if(o.Status == 'Invoiced'){
+                        toAppend += '<tr><td>'+o.Item_Code+'</td><td>'+o.Item_Name+'</td><td>'+o.Qty_In_Cases+'</td><td>'+o.Qty_In_Packs+'</td><td>'+o.Amount+'</td><td>'+o.Weight_In_Kgs+'</td><td>'+o.Billd_Qty+'</td><td>'+o.CGST_Amnt+'</td><td>'+o.SGST_Amnt+'</td><td>'+o.IGST_Amnt+'</td><td>'+o.Rate+'</td><td></td></tr>';
+                       }else{
+                        toAppend += '<tr><td><input type="text" name="itemcode[]" value="'+o.Item_Code+'" style="color:#000"/></td><td><input type="text" name="itemname[]" value="'+o.Item_Name+'" style="color:#000"/></td><td><input type="text" name="qty[]" value="'+o.Qty_In_Cases+'" onblur="updateRate(this.value,'+i+')"/></td><td><input type="text" name="qtypacks[]" value="'+o.Qty_In_Packs+'" style="color:#000"/></td><td><input type="text" name="price[]" id="price'+i+'" value="'+o.Amount+'" style="color:#000"/></td><td><input type="text" name="weight[]" value="'+o.Weight_In_Kgs+'" style="color:#000"/></td><td><input type="text" name="billedqty[]" value="'+o.Billd_Qty+'"  style="color:#000"/></td><td><input type="text" name="cgst[]" id="cgstp'+i+'" value="'+o.CGST_Per+'" style="color:#000"/></td><td><input type="text" name="sgst[]" id="sgstp'+i+'" value="'+o.SGST_Per+'"  style="color:#000"/></td><td><input type="text" name="igst[]" id="igstp'+i+'" value="'+o.IGST_Per+'"  style="color:#000"/></td><td><input type="text" name="rate[]" id="rate'+i+'" value="'+o.Rate+'" style="color:#000"/></td><td><a href="javascript:void(0);" class="remCF">Remove</a></td></tr>';
+                       }
+                     
+                    });
+
+                   $('#my-example').append(toAppend);
+
+          }
+          });
+
+            }
+          }
+        });
+
+    
+
+$("#my-example").on('click','.remCF',function(){
+        $(this).parent().parent().remove();
+    });
+$.ajax({
+          url:server+"GetDistributors.php",
+          data:{"SalesmenCode":localStorage.getItem("Emp_Code")},
+          type:"POST",
+          success:function(data){
+            console.log(data);
+                  var toAppend = '';
+                     $.each(data,function(i,o){
+                     toAppend += '<option value="'+o.Customer_Id+'">'+o.Customer_Name+'</option>';
+                    });
+
+                   $('#dis').append(toAppend);
+
+          }
+          });
+
+
+          $.ajax({
+          url:server+"GetGroups.php",
+          success:function(data){
+                  var toAppend = '';
+                     $.each(data,function(i,o){
+                     toAppend += '<option value="'+o.Groupid+'">'+o.Groupname+'</option>';
+                    });
+
+                   $('#group').append(toAppend);
+
+          }
+          });
+
+          $("#corder").on('submit', function(e){
+           e.preventDefault();
+           var fdata= $("#corder").serialize();
+           $.ajax({
+              url:server+"insertInvoice.php",
+              data:fdata,
+              type:"POST",
+              beforeSend:function(){
+                $("#loader").show();
+              },
+              success: function(str){
+                $("#loader").hide();
+                console.log(str);
+                if(str.Status == 'Success'){
+                location.href='View_Orders_DB.html';
+                }else{
+                  alert("Sorry, error happens");
+                }
+              },
+              error: function(jqXHR, status, error){
+            $("#loader").hide();
+            alert(jqHXR+" -- "+status+" -- "+error);
+       }
+           });
+        });
 var button = document.getElementById('cn-button'),
     wrapper = document.getElementById('cn-wrapper'),
     overlay = document.getElementById('cn-overlay');
@@ -225,6 +397,27 @@ var button = document.getElementById('cn-button'),
   document.addEventListener('click', closeNav);
    
         });
+
+function updateRate(no,i){
+      var price = $("#price"+i).val();
+      var trate;
+      var cgst = $("#cgstp"+i).val();
+      var sgst = $("#sgstp"+i).val();
+      var igst = $("#igstp"+i).val();
+      if(cgst != 0){
+        trate = cgst+sgst;
+      }else{
+        trate = igst;
+      }
+
+      var total = price*no;
+      var per = ((price*no)*trate)/100;
+      var fp = total+parseInt(per);
+      console.log(fp);
+      $("#rate"+i).val(parseInt(fp));
+      $("#billedqty"+i).val(no);
+    }
+
   function chageStatus(){
 
    $.ajax({
@@ -238,6 +431,81 @@ var button = document.getElementById('cn-button'),
           }
           }); 
   }
+
+
+   function updateSale(did){
+      console.log(did);
+    $.ajax({
+          url:server+"getSaletype.php",
+          data:{"Customer_Id":did},
+          type:"POST",
+          success:function(data){
+            console.log(data);
+            if(data.length>0){
+              $("#saletype").val(data[0].Prefix);  
+            }else{
+              $("#saletype").val('');
+            }
+            
+            }
+          });
+
+    }
+
+
+    function addItems(icode,iname,nunits,npacks,weight,cunits,price){
+      $("#sdata").hide();
+      $("#itemname").val(iname);
+      $("#qtyunits").val(nunits);
+      $("#qtypacks").val(npacks);
+      $("#price").val(nunits);
+      $("#weight").val(weight);
+      $("#actualqtyunits").val(nunits);
+      $("#perbox").val(cunits);
+      $("#itemcode").val(icode);
+      //console.log(icode+","+iname+","+nunits+","+npacks+","+weight+","+cunits+","+price);
+    }
+    function updatePrice(no){ 
+      console.log(no);
+      var price = $("#price").val();
+      var trate = $("#taxrate").val();
+      var total = price*no;
+      var per = ((price*no)*trate)/100;
+      var fp = total+per;
+      $("#rate").val(fp);
+      $("#billedqty").val(no);
+      $("#qtycases").val(no);
+    }
+    var i = 1;
+    function addData2Row(){
+      
+var markup = '<tr><td width="10%"><input type="number" name="itemcode[]" class="form-control" value="'+$("#itemcode").val()+'"/></td><td width="20%"><input type="text" name="itemname[]" class="form-control" value="'+$("#itemname").val()+'"/></td><td width="10%"><input type="text" name="qtycases[]" class="form-control" value="'+$("#qtycases").val()+'"/></td><td width="10%"><input type="text" name="qtypacks[]" class="form-control" value="'+$("#qtypacks").val()+'"/></td><td width="10%"><input type="text" name="price[]" class="form-control" value="'+$("#price").val()+'" onblur="updatePrice1(this.value,'+i+');"/></td><td width="10%"><input type="text" name="weight[]" class="form-control" value="'+$("#weight").val()+'"/></td><td width="5%"><input type="text" name="billedqty[]" class="form-control" value="'+$("#qty").val()+'"/></td><td><input type="hidden" name="taxrate[]" id="taxrate'+i+'" class="form-control" value="'+$("#taxrate").val()+'"/></td><input type="hidden" name="qty[]" id="qty'+i+'" class="form-control" value="'+$("#qty").val()+'"/><td></td><td></td><td width="5%"><input type="text" name="rate[]" id="rate'+i+'n" class="form-control" value="'+$("#rate").val()+'"/></td><td><a href="javascript:void(0);" class="remCF">Remove</a></td></tr>';
+$("table tbody").append(markup);
+
+$("#itemname").val('');
+$("#qtyunits").val('');
+$("#qtypacks").val('');
+$("#price").val('');
+$("#weight").val('');
+$("#actualqty").val('');
+$("#perbox").val('');
+$("#itemcode").val('');
+$("#qty").val('');
+$("#qtycases").val('');
+$("#billedqty").val('');
+$("#rate").val('');
+    i++;
+    }
+
+function updatePrice1(price,i){
+      var no = $("#qty"+i).val();
+      var trate = $("#taxrate"+i).val();
+      var total = price*no;
+      var per = ((price*no)*trate)/100;
+      var fp = total+per;
+      $("#rate"+i+"n").val(fp);
+      console.log(price+","+no+","+trate+","+per+","+fp);
+    }
   </script>
   </body>
 </html>

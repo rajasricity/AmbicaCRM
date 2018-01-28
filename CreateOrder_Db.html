@@ -73,7 +73,7 @@
   </style>  
   </head>
   
-  <body style="background: #fff">
+  <body>
 <div class="rnd" id="add">
   <i class="fa fa-plus"></i>
 </div>
@@ -100,20 +100,7 @@
 <div class="container" style="padding:0px;">
 <form id="corder">
 <div id="first">
-
-<select name="dis" id="dis" class="form-control" onchange="showCustomers(this.value),updateSale(this.value);" required>
-    <option value="">Select Distributor</option>
-</select>
-<br>
-<select name="customer" id="customer" class="form-control" required>
-    <option value="">Select Customer</option>
-</select>
-<br>
-<input type="text" name="saletype" id="saletype" class="form-control" placeholder="SALE ORDER TYPE" readonly="readonly"/><br>
-<span style="color:#000">DELIVERY DATE</span>
-<input type="date" name="deldate" class="form-control" required="required"/><br>
-</div>
-
+<input type="hidden" name="dis" id="dis"/>
 <div id="second">
 <div class="table-responsive" style="z-index:999">
   <table class="table table-bordered" style="width:1500px;color:#000;">
@@ -124,10 +111,9 @@
 </thead>
 <tbody></tbody>
   </table>
+<br>
 </div>
 </div>
-<input type="hidden" name="company" value="5"/>
-<input type="hidden" name="cby" id="cby" value=""/>
 <input type="submit" name="submit" class="btn btn-primary" value="CREATE ORDER"/>
 <center><img src="img/preloader.gif" style="width:40px;height:40px;display:none" id="loader"/></center>
 </form>
@@ -149,7 +135,7 @@
             <span id="uname"></span></span>
           </div>
         </li>
-        <div id="srleft"></div>
+        <div id="dbleft"></div>
       </ul>
 
 <div id="itemModal" class="modal fade" role="dialog" style="width:100%;background-color: transparent;">
@@ -213,17 +199,16 @@
     <script src="js/custome.js"></script>
     <script>
         $(function(){
-         $("#add").hide();
          $("#add").on('click', function(e){
            e.preventDefault();
            $("#itemModal").modal("show");
         });
-        $("#cby").val(localStorage.getItem("Emp_Code"));
+        $("#dis").val(localStorage.getItem("Customer_Code"));
         $("#corder").on('submit', function(e){
            e.preventDefault();
            var fdata= $("#corder").serialize();
            $.ajax({
-              url:server+"insertOrderSr.php",
+              url:server+"insertOrderDb.php",
               data:fdata,
               type:"POST",
               beforeSend:function(){
@@ -233,7 +218,7 @@
                 $("#loader").hide();
                 console.log(str);
                 if(str.Status == 'Success'){
-                location.href='View_Orders_SR.html';
+                location.href='View_Orders_DB.html';
                 }else{
                   alert("Sorry, error happens");
                 }
@@ -245,21 +230,6 @@
            });
         });
         
-        $.ajax({
-          url:server+"GetDistributors.php",
-          data:{"SalesmenCode":localStorage.getItem("Emp_Code")},
-          type:"POST",
-          success:function(data){
-            console.log(data);
-                  var toAppend = '';
-                     $.each(data,function(i,o){
-                     toAppend += '<option value="'+o.Customer_Id+'">'+o.Customer_Name+'</option>';
-                    });
-
-                   $('#dis').append(toAppend);
-
-          }
-          });
 
 
           $.ajax({
@@ -279,25 +249,6 @@
         $(this).parent().parent().remove();
     });
     });
-    function showCustomers(cid){
-      $("#add").show();
-    $.ajax({
-          url:server+"getCustomers.php",
-          data:{"Customer_Id":cid},
-          type:"POST",
-          success:function(data){
-            console.log(data);
-            $("#customer").empty();
-                  var toAppend = '';
-                     $.each(data,function(i,o){
-                     toAppend += '<option value="'+o.Customer_Id+'">'+o.Customer_Name+'</option>';
-                    });
-
-                   $('#customer').append(toAppend);
-          }
-          });
-
-    }
 
     function updateSale(did){
       console.log(did);

@@ -85,8 +85,10 @@
             <th>Date</th>
             <th>Order No</th>
             <th>Customer</th>
-            <th>Order Type</th>
-            <th>Amount</th>
+            <th>Created By</th>
+            <th>Sub Total</th>
+            <th>Order Amount</th>
+            <th>Delivery Date</th>
             <th>Status</th>
         </tr>
     </thead>
@@ -96,8 +98,21 @@
 
   </div>
   <div id="output" class="tab-pane fade">
-    <h3>OUTPUT ORDERS</h3>
-    <p>LIST OF OUTPUT ORDERS</p>
+  
+<div class="table-responsive" style="padding:0px !important;">
+<table class="table table-bordered" id="my-example1">
+    <thead>
+        <tr style="background-color: #9C2B76">
+            <th>Date</th>
+            <th>Order No</th>
+            <th>Amount</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody style="background-color: #fff;color:#000"></tbody>
+</table>
+</div>
+
   </div>
 </div>
 
@@ -107,9 +122,9 @@
 				<div class="cn-wrapper" id="cn-wrapper">
 				    <ul>
 				      <li><a href="Screen_DB.html" class="waves-effect"><i class="fa fa-home"></i></a></li>
-                <li><a href="#" class="waves-effect"><i class="fa fa-edit"></i></a></li>
-                <li><a href="View_Orders_DB.html" class="waves-effect"><i class="fa fa-eye"></i></a></li>
-				      <li><a href="#"><i class="fa fa-user-circle-o"></i></a></li>
+              <li><a href="CreateOrder_Db.html" class="waves-effect"><i class="fa fa-edit"></i></a></li>
+              <li><a href="View_Orders_DB.html" class="waves-effect"><i class="fa fa-eye"></i></a></li>
+				      <li><a href="Profile_DB.html"><i class="fa fa-user-circle-o"></i></a></li>
 				      <li><a href="#"><i class="fa fa-bar-chart-o"></i></a></li>
 				     </ul>
 				</div>
@@ -134,18 +149,7 @@
             <span id="uname"></span></span>
           </div>
         </li>
-        <li><a href="Screen_DB.html" class="waves-effect">
-          <i class="fa fa-home" style="margin-top:4px;"></i> Home</a></li>
-        <li><a href="#" class="waves-effect">
-        <i class="fa fa-edit" style="margin-top:4px;"></i> Create</a></li>
-        <li><a href="View_Orders_DB.html" class="waves-effect">
-        <i class="fa fa-eye" style="margin-top:4px;"></i> View</a></li>
-        <li><a href="#" class="waves-effect">
-        <i class="fa fa-user-circle-o" style="margin-top:4px;"></i> Profile</a></li>
-        <li><a href="#" class="waves-effect">
-        <i class="fa fa-bar-chart-o" style="margin-top:4px;"></i> Reports</a></li>
-        <li><a href="javascript:;" class="waves-effect" onclick="logout();">
-        <i class="fa fa-arrow-left" style="margin-top:4px;"></i> Logout</a></li>
+        <div id="dbleft"></div>
       </ul>
 
     </div>
@@ -163,7 +167,8 @@
     <script src="js/vendor/swiper.min.js"></script>
     <script src="js/vendor/materialize.min.js"></script>
     <script src="js/main.js"></script>
-     <script src="js/datatables.js"></script>
+    <script src="js/datatables.js"></script>
+    <script src="js/custome.js"></script>
     <script>
         $(function(){
 if(localStorage.getItem("Role") != null){
@@ -174,15 +179,31 @@ if(localStorage.getItem("Role") != null){
     location.href="index.html";
 }
 
+// var table = $('#my-example').DataTable({
+//          "bProcessing": true,
+//          "sAjaxSource": "http://apkser.laksanasoft.com/Login/GetDistributor?Customer_Code="+localStorage.getItem("Customer_Code"),
+//          "aoColumns": [
+//                { mData: 'Created_Date' } ,
+//                { mData: 'Order_No' },
+//                { mData: 'Customer_Code' },
+//                { mData: 'SaleOrdertype' },
+//                { mData: 'Total_Order_Amount' },
+//                { mData: 'Status' }
+//              ],
+//           "bLengthChange": false,
+//       });
+
 var table = $('#my-example').DataTable({
          "bProcessing": true,
-         "sAjaxSource": "http://apkser.laksanasoft.com/Login/GetDistributor?Customer_Code="+localStorage.getItem("Customer_Code"),
+         "sAjaxSource": server+"getInputOrders.php?Customer_Code="+localStorage.getItem("User"),
          "aoColumns": [
-               { mData: 'Created_Date' } ,
+               { mData: 'Order_Date' } ,
                { mData: 'Order_No' },
-               { mData: 'Customer_Code' },
-               { mData: 'SaleOrdertype' },
+               { mData: 'Customer' },
+               { mData: 'Executive' },
+               { mData: 'Sub_Total' },
                { mData: 'Total_Order_Amount' },
+               { mData: 'Delivery_Dt' },
                { mData: 'Status' }
              ],
           "bLengthChange": false,
@@ -193,7 +214,18 @@ var table = $('#my-example').DataTable({
         localStorage.setItem("Order",data.Order_No);
         location.href="Order.html";
     } );
-
+var table = $('#my-example1').DataTable({
+         "bProcessing": true,
+         "sAjaxSource": server+"getOutputOrders.php?Customer_Code="+localStorage.getItem("Customer_Code"),
+         "aoColumns": [
+               { mData: 'Order_Date' } ,
+               { mData: 'Order_No' },
+               { mData: 'Total_Order_Amount' },
+               { mData: 'Status' }
+             ],
+             "aaSorting": [[ 0, "desc" ]],
+              "bLengthChange": false,
+      });
 
 var button = document.getElementById('cn-button'),
     wrapper = document.getElementById('cn-wrapper'),

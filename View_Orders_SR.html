@@ -61,9 +61,15 @@
         <tr style="background-color: #9C2B76">
             <th>Date</th>
             <th>Order No</th>
+            <th>Distributor</th>
             <th>Customer</th>
-            <th>Order Type</th>
-            <th>Amount</th>
+            <th>Total Qty in Cases</th>
+            <th>Total Qty in Packs</th>
+            <th>Sub Total</th>
+            <th>Tax %</th>
+            <th>Tax Amount</th>
+            <th>Order Amount</th>
+            <th>Delivery Date</th>
             <th>Status</th>
         </tr>
     </thead>
@@ -95,6 +101,7 @@
       <!-- Sidebars -->
       <!-- Left Sidebar -->
       <ul id="slide-out-left" class="side-nav collapsible">
+        
         <li class="sidenav-avatar" style="background-color: #BCBADE">
           <div class="opacity-overlay-gradient"></div>
           <div class="bottom">
@@ -104,16 +111,7 @@
             <span id="uname"></span></span>
           </div>
         </li>
-        <li><a href="Screen_SR.html" class="waves-effect">
-          <i class="fa fa-home" style="margin-top:4px;"></i> Home</a></li>
-        <li><a href="CreateOrder_Sr.html" class="waves-effect">
-        <i class="fa fa-edit" style="margin-top:4px;"></i> Create</a></li>
-        <li><a href="View_Orders_SR.html" class="waves-effect">
-        <i class="fa fa-eye" style="margin-top:4px;"></i> View</a></li>
-        <li><a href="#" class="waves-effect">
-        <i class="fa fa-user-circle-o" style="margin-top:4px;"></i> Profile</a></li>
-        <li><a href="#" class="waves-effect">
-        <i class="fa fa-bar-chart-o" style="margin-top:4px;"></i> Reports</a></li>
+        <div id="srleft"></div>
       </ul>
 
 
@@ -135,6 +133,7 @@
     <script src="js/vendor/materialize.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/datatables.js"></script>
+    <script src="js/custome.js"></script>
     <script>
         $(function(){
 // /Date(1504086189000)/
@@ -184,32 +183,23 @@ var button = document.getElementById('cn-button'),
 
  var table = $('#my-example').DataTable({
          "bProcessing": true,
-         "sAjaxSource": "http://apkser.laksanasoft.com/Login/getorders?Created_By="+localStorage.getItem("User_Name"),
+         "sAjaxSource": server+"GetOrdersSr.php?SalesmenCode="+localStorage.getItem("Emp_Code"),
          "aoColumns": [
-               { mData: 'Created_Date' } ,
+               { mData: 'Order_Date' } ,
                { mData: 'Order_No' },
-               { mData: 'Customer_Code' },
-               { mData: 'SaleOrdertype' },
+               { mData: 'Distributor' },
+               { mData: 'Customer' },
+               { mData: 'Total_Qty_In_Cases' },
+               { mData: 'Total_Qty_In_Packs' },
+               { mData: 'Sub_Toal' },
+               { mData: 'Tax_Percentage' },
+               { mData: 'Tax_Amount' },
                { mData: 'Total_Order_Amount' },
+               { mData: 'Delivery_Dt' },
                { mData: 'Status' }
              ],
           "bLengthChange": false,
       });
-
-          /*$.ajax({
-          url:"http://apkser.laksanasoft.com/Login/getorders",
-          data:{"Created_By":localStorage.getItem("User_Name")},
-          type:"GET",
-          success:function(data){
-                  var toAppend = '';
-                     $.each(data,function(i,o){
-                     console.log(o);
-                     toAppend += '<tr><td>'+o.Created_Date+'</td><td>'+o.Order_No+'</td><td>'+o.Customer_Name+'</td><td>'+o.SaleOrdertype+'</td><td>'+o.Total_Order_Amount+'</td><td>'+o.Status+'</td></tr>';
-                    });
-
-                   $('table tbody').append(toAppend);
-          }
-          });*/
 
     });
     </script>

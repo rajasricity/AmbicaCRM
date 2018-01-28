@@ -75,9 +75,9 @@
 				<div class="cn-wrapper" id="cn-wrapper">
 				    <ul>
 				<li><a href="Screen_SR.html" class="waves-effect"><i class="fa fa-home"></i></a></li>
-                <li><a href="CreateOrder_Sr.html" class="waves-effect"><i class="fa fa-edit"></i></a></li>
-                <li><a href="View_Orders_SR.html" class="waves-effect"><i class="fa fa-eye"></i></a></li>
-				      <li><a href="#"><i class="fa fa-user-circle-o"></i></a></li>
+        <li><a href="CreateOrder_Sr.html" class="waves-effect"><i class="fa fa-edit"></i></a></li>
+        <li><a href="View_Orders_SR.html" class="waves-effect"><i class="fa fa-eye"></i></a></li>
+				      <li><a href="Profile_SR.html"><i class="fa fa-user-circle-o"></i></a></li>
 				      <li><a href="#"><i class="fa fa-bar-chart-o"></i></a></li>
 				     </ul>
 				</div>
@@ -93,6 +93,7 @@
       <!-- Sidebars -->
       <!-- Left Sidebar -->
       <ul id="slide-out-left" class="side-nav collapsible">
+        
         <li class="sidenav-avatar" style="background-color: #BCBADE">
           <div class="opacity-overlay-gradient"></div>
           <div class="bottom">
@@ -102,18 +103,7 @@
             <span id="uname"></span></span>
           </div>
         </li>
-        <li><a href="Screen_SR.html" class="waves-effect">
-          <i class="fa fa-home" style="margin-top:4px;"></i> Home</a></li>
-        <li><a href="CreateOrder_Sr.html" class="waves-effect">
-        <i class="fa fa-edit" style="margin-top:4px;"></i> Create</a></li>
-        <li><a href="View_Orders_SR.html" class="waves-effect">
-        <i class="fa fa-eye" style="margin-top:4px;"></i> View</a></li>
-        <li><a href="#" class="waves-effect">
-        <i class="fa fa-user-circle-o" style="margin-top:4px;"></i> Profile</a></li>
-        <li><a href="#" class="waves-effect">
-        <i class="fa fa-bar-chart-o" style="margin-top:4px;"></i> Reports</a></li>
-        <li><a href="javascript:;" class="waves-effect" onclick="logout();">
-        <i class="fa fa-arrow-left" style="margin-top:4px;"></i> Logout</a></li>
+        <div id="srleft"></div>
       </ul>
 
     </div>
@@ -131,12 +121,11 @@
     <script src="js/vendor/swiper.min.js"></script>
     <script src="js/vendor/materialize.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/custome.js"></script>
     <script>
         $(function(){
 if(localStorage.getItem("Role") != null){
-  /*if(localStorage.getItem('Role') == 'SR'){
-    location.href="Screen_SR.html";
-  }*/
+  
 }else{
     location.href="index.html";
 }
