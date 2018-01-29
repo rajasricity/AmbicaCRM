@@ -1,14 +1,17 @@
 var server;
 $(function(){
-	server = "http://ambicamobile.laksanasoft.com/mobile/";
+	//server = "http://localhost:2800/ambica/";
+  server = "http://ambicamobile.laksanasoft.com/mobile/";
 	connect();
 $("#srleft").load(server+"srsidebar.php");
 $("#dbleft").load(server+"dbsidebar.php");
+$("#soleft").load(server+"sosidebar.php");
+$("#asoleft").load(server+"asosidebar.php");
 if(localStorage.getItem("Role") == 'SR'){
-    $("#uname").html(localStorage.getItem("User_Name"));
+    $("#uname").html(localStorage.getItem("User_Name"));  
 }
 if(localStorage.getItem("User") == 'SO'){
-    
+   $("#uname").html(localStorage.getItem("User_Name"));  
 }
 if(localStorage.getItem("User") == 'ASO'){
     $("#uname").html(localStorage.getItem("User_Name"));
@@ -42,19 +45,19 @@ if(localStorage.getItem("Role") == 'Distributor'){
          }
 
         if(str.Role == 'SO'){
-        localStorage.setItem("Role",'SM');
+        localStorage.setItem("Role",str.Role);
         localStorage.setItem("User",str.Roll_Id);
-        localStorage.setItem("Emp_Code",str.Emp_Code);
+        localStorage.setItem("Emp_Code",str.Empcode);
         localStorage.setItem("User_Name",str.User_Name);
-        location.href="Screen_SM.html";
+        location.href="Screen_SO.html";
          }
 
         if(str.Role == 'ASO'){
-        localStorage.setItem("Role",'DB');
+        localStorage.setItem("Role",str.Role);
         localStorage.setItem("User",str.Roll_Id);
-        localStorage.setItem("Customer_Code",str.Customer_Id);
-        localStorage.setItem("User_Name",str.Customer_Name);
-        location.href="Screen_DB.html";
+        localStorage.setItem("Emp_Code",str.Empcode);
+        localStorage.setItem("User_Name",str.User_Name);
+        location.href="Screen_ASO.html";
          }
 
          if(str.Role == 'Distributor'){
@@ -172,4 +175,9 @@ localStorage.removeItem("Userid");
 localStorage.removeItem("Emp_Code");
 localStorage.removeItem("User_Name");
 location.href="index.html";
+}
+
+function showOrder(oid){
+localStorage.setItem("Order",oid);
+location.href="Order.html"; 
 }
