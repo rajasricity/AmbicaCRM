@@ -59,7 +59,7 @@
         </div>
         <h1 class="title">Ambica CRM</h1>
         <div class="open-right" id="open-right" data-activates="slide-out">
-          <i class="fa fa-bell" style="font-size:20px;margin-top:22px;"></i>
+          &nbsp;
         </div>
       </div>
       <!-- End of Toolbar -->
@@ -69,62 +69,17 @@
         <!-- Your contents goes here! -->
 <br>
 <div class="container" style="padding:0px;">
-
-<ul class="nav nav-tabs" style="background-color: #D0ABE4;">
-  <li class="active"><a data-toggle="tab" href="#input">INPUT</a></li>
-  <li><a data-toggle="tab" href="#output">OUTPUT</a></li>
-</ul>
-
-<div class="tab-content">
-  <div id="input" class="tab-pane fade in active">
-
-<div class="table-responsive" style="padding:0px !important;">
-<table class="table table-bordered" id="my-example">
-    <thead>
-        <tr style="background-color: #9C2B76">
-            <th>Date</th>
-            <th>Order No</th>
-            <th>Customer</th>
-            <th>Created By</th>
-            <th>Sub Total</th>
-            <th>Order Amount</th>
-            <th>Delivery Date</th>
-            <th>Status</th>
-        </tr>
-    </thead>
-    <tbody style="background-color: #fff;color:#000"></tbody>
-</table>
-</div>
-
-  </div>
-  <div id="output" class="tab-pane fade">
-  
-<div class="table-responsive" style="padding:0px !important;">
-<table class="table table-bordered" id="my-example1">
-    <thead>
-        <tr style="background-color: #9C2B76">
-            <th>Date</th>
-            <th>Order No</th>
-            <th>Amount</th>
-            <th>Status</th>
-        </tr>
-    </thead>
-    <tbody style="background-color: #fff;color:#000"></tbody>
-</table>
-</div>
-
-  </div>
-</div>
-
+<img src="img/profile.png"/>
+<div id="profile"></div>
 <div class="component">
 				<!-- Start Nav Structure -->
 				<button class="cn-button" id="cn-button">+</button>
 				<div class="cn-wrapper" id="cn-wrapper">
 				    <ul>
-				      <li><a href="Screen_DB.html" class="waves-effect"><i class="fa fa-home"></i></a></li>
-              <li><a href="CreateOrder_Db.html" class="waves-effect"><i class="fa fa-edit"></i></a></li>
-              <li><a href="View_Orders_DB.html" class="waves-effect"><i class="fa fa-eye"></i></a></li>
-				      <li><a href="Profile_DB.html"><i class="fa fa-user-circle-o"></i></a></li>
+				      <li><a href="Screen_ASO.html" class="waves-effect"><i class="fa fa-home"></i></a></li>
+              <li><a href="#" class="waves-effect"><i class="fa fa-edit"></i></a></li>
+              <li><a href="View_Orders_ASO.html" class="waves-effect"><i class="fa fa-eye"></i></a></li>
+				      <li><a href="Profile_ASO.html"><i class="fa fa-user-circle-o"></i></a></li>
 				      <li><a href="#"><i class="fa fa-bar-chart-o"></i></a></li>
 				     </ul>
 				</div>
@@ -149,41 +104,7 @@
             <span id="uname"></span></span>
           </div>
         </li>
-        <div id="dbleft"></div>
-      </ul>
-
-      <ul id="slide-out" class="side-nav">
-        <li class="sidenav-header">
-          <!-- Srearch bar -->
-          <nav>
-            <div class="nav-wrapper">
-              <form>
-                <div class="input-field">
-                  <input id="search" type="search" required>
-                  <label for="search"><i class="ion-android-search"></i></label>
-                  <i class="ion-android-close"></i>
-                </div>
-              </form>
-            </div>
-          </nav>
-        </li>
-        <!-- Tabs -->
-        <li>
-          <ul class="tabs">
-            <li class="tab col s3"><a href="#sidebar1">LATEST ORDERS</a></li>
- <!--            <li class="tab col s3"><a href="#sidebar2" class="active">Chat</a></li> -->
-          </ul>
-        </li>
-        
-        <li id="sidebar2" class="p-20">
-          <!-- Chat -->
-          <div class="chat-sidebar">
-            <div class="chat-message">
-              <p id="lorders"></p>
-            </div>
-          </div>
-
-        </li>
+        <div id="asoleft"></div>
       </ul>
 
     </div>
@@ -212,8 +133,21 @@ if(localStorage.getItem("Role") != null){
 }else{
     location.href="index.html";
 }
+$("#profile").load(server+"getInfoSr.php?Emp_Code="+localStorage.getItem("Emp_Code"));
+// var table = $('#my-example').DataTable({
+//          "bProcessing": true,
+//          "sAjaxSource": "http://apkser.laksanasoft.com/Login/GetDistributor?Customer_Code="+localStorage.getItem("Customer_Code"),
+//          "aoColumns": [
+//                { mData: 'Created_Date' } ,
+//                { mData: 'Order_No' },
+//                { mData: 'Customer_Code' },
+//                { mData: 'SaleOrdertype' },
+//                { mData: 'Total_Order_Amount' },
+//                { mData: 'Status' }
+//              ],
+//           "bLengthChange": false,
+//       });
 
-$("#lorders").load(server+"latestOrders.php?Customer_Code="+localStorage.getItem("Customer_Code"));
 var table = $('#my-example').DataTable({
          "bProcessing": true,
          "sAjaxSource": server+"getInputOrders.php?Customer_Code="+localStorage.getItem("User"),
@@ -235,7 +169,7 @@ var table = $('#my-example').DataTable({
         localStorage.setItem("Order",data.Order_No);
         location.href="Order.html";
     } );
-var table1 = $('#my-example1').DataTable({
+var table = $('#my-example1').DataTable({
          "bProcessing": true,
          "sAjaxSource": server+"getOutputOrders.php?Customer_Code="+localStorage.getItem("Customer_Code"),
          "aoColumns": [
@@ -244,6 +178,7 @@ var table1 = $('#my-example1').DataTable({
                { mData: 'Total_Order_Amount' },
                { mData: 'Status' }
              ],
+             "aaSorting": [[ 0, "desc" ]],
               "bLengthChange": false,
       });
 

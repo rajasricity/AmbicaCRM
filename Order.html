@@ -234,6 +234,13 @@ $("#add").on('click', function(e){
            $("#itemModal").modal("show");
         });
 
+$.ajax({
+  url:server+"updateOrder.php?order="+localStorage.getItem("Order"),
+  type:"GET",
+  success: function(str){
+    console.log(str.Status);
+  }
+});
 
 $.ajax({
           url:server+"getStatusByOrder.php",
