@@ -64,11 +64,10 @@
       <!-- End of Toolbar -->
 
       <!-- Page Contents -->
-      <div class="page">
-        <!-- Your contents goes here! -->
+      <div class="page">        <!-- Your contents goes here! -->
 <br>
 <div class="container">
-<p id="demo" style="color:#000"></p>
+
 <div class="component">
 				<!-- Start Nav Structure -->
 				<button class="cn-button" id="cn-button">+</button>
@@ -125,7 +124,6 @@
 
     <script>
         $(function(){
-          getLocation();
 if(localStorage.getItem("Role") != null){
   
 }else{
@@ -172,20 +170,5 @@ var button = document.getElementById('cn-button'),
    
         });
     </script>
-    <script>
-var x = document.getElementById("demo");
-function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
-    }
-}
-
-function showPosition(position) {
-    x.innerHTML = "Latitude: " + position.coords.latitude +
-    "<br>Longitude: " + position.coords.longitude;
-}
-</script>
   </body>
 </html>
