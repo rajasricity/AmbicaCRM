@@ -97,13 +97,8 @@
             <th>Item Code</th>
             <th>Item Name</th>
             <th>Qty in Cases</th>
-            <th>Qty in Packs</th>
             <th>Price</th>
-            <th>Weight</th>
             <th>Billed Qty</th>
-            <th>CGST</th>
-            <th>SGST</th>
-            <th>IGST</th>
             <th>Rate</th>
             <th>Del</th>
         </tr>
@@ -181,15 +176,15 @@
 </div>
       <input type="text" name="qty" id="qty" class="form-control" placeholder="Quantity" onblur="updatePrice(this.value);"/>
       <input type="text" name="itemname" id="itemname" class="form-control" placeholder="Item Name"/>
-      <input type="text" name="qtycases" id="qtycases" class="form-control" placeholder="Quantity in Cases" tabindex="2"/>
-      <input type="hidden" name="qtypacks" id="qtypacks" class="form-control" placeholder="Quantity in Packs"/>
+      <!-- <input type="text" name="qtycases" id="qtycases" class="form-control" placeholder="Quantity in Cases" tabindex="2"/>
+      <input type="hidden" name="qtypacks" id="qtypacks" class="form-control" placeholder="Quantity in Packs"/> -->
       <input type="hidden" name="price" id="price" class="form-control" placeholder="Price"/>
-      <input type="hidden" name="weight" id="weight" class="form-control" placeholder="Weight in Kgs"/>
+      <!-- <input type="hidden" name="weight" id="weight" class="form-control" placeholder="Weight in Kgs"/> -->
       <input type="hidden" name="billedqty" id="billedqty" class="form-control" placeholder="Billed Quantity"/>
       <input type="hidden" name="taxrate" id="taxrate" class="form-control" placeholder="Tax Rate"/>
       <input type="hidden" name="rate" id="rate" class="form-control" placeholder="Rate"/>
       <input type="hidden" name="perbox" id="perbox" class="form-control" placeholder="Per Box"/>
-      <input type="text" name="itemcode" id="itemcode" class="form-control" placeholder="Item Code"/>
+      <input type="hidden" name="itemcode" id="itemcode" class="form-control" placeholder="Item Code"/>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success" data-dismiss="modal" onclick="addData2Row();" style="margin-left:10px;">Add</button>
@@ -290,7 +285,7 @@ $.ajax({
                        if(o.Status == 'Invoiced'){
                         toAppend += '<tr><td>'+o.Item_Code+'</td><td>'+o.Item_Name+'</td><td>'+o.Qty_In_Cases+'</td><td>'+o.Qty_In_Packs+'</td><td>'+o.Amount+'</td><td>'+o.Weight_In_Kgs+'</td><td>'+o.Billd_Qty+'</td><td>'+o.CGST_Amnt+'</td><td>'+o.SGST_Amnt+'</td><td>'+o.IGST_Amnt+'</td><td>'+o.Rate+'</td><td></td></tr>';
                        }else{
-                        toAppend += '<tr><td><input type="text" name="itemcode[]" value="'+o.Item_Code+'" style="color:#000"/></td><td><input type="text" name="itemname[]" value="'+o.Item_Name+'" style="color:#000"/></td><td><input type="text" name="qty[]" value="'+o.Qty_In_Cases+'" onblur="updateRate(this.value,'+i+')"/></td><td><input type="text" name="qtypacks[]" value="'+o.Qty_In_Packs+'" style="color:#000"/></td><td><input type="text" name="price[]" id="price'+i+'" value="'+o.Amount+'" style="color:#000"/></td><td><input type="text" name="weight[]" value="'+o.Weight_In_Kgs+'" style="color:#000"/></td><td><input type="text" name="billedqty[]" value="'+o.Billd_Qty+'"  style="color:#000"/></td><td><input type="text" name="cgst[]" id="cgstp'+i+'" value="'+o.CGST_Per+'" style="color:#000"/></td><td><input type="text" name="sgst[]" id="sgstp'+i+'" value="'+o.SGST_Per+'"  style="color:#000"/></td><td><input type="text" name="igst[]" id="igstp'+i+'" value="'+o.IGST_Per+'"  style="color:#000"/></td><td><input type="text" name="rate[]" id="rate'+i+'" value="'+o.Rate+'" style="color:#000"/></td><td><a href="javascript:void(0);" class="remCF">Remove</a></td></tr>';
+                        toAppend += '<tr><td><input type="text" name="itemcode[]" value="'+o.Item_Code+'" style="color:#000"/></td><td><input type="text" name="itemname[]" value="'+o.Item_Name+'" style="color:#000"/></td><td><input type="text" name="qty[]" value="'+o.Qty_In_Cases+'" onblur="updateRate(this.value,'+i+')"/></td><td><input type="text" name="price[]" id="price'+i+'" value="'+o.Amount+'" style="color:#000"/></td><td><input type="text" name="billedqty[]" value="'+o.Billd_Qty+'"  style="color:#000"/></td><td><input type="text" name="rate[]" id="rate'+i+'" value="'+o.Rate+'" style="color:#000"/></td><td><a href="javascript:void(0);" class="remCF">Remove</a></td></tr>';
                        }
                      
                     });
@@ -486,9 +481,8 @@ function updateRate(no,i){
     var i = 1;
     function addData2Row(){
       
-var markup = '<tr><td width="10%"><input type="number" name="itemcode[]" class="form-control" value="'+$("#itemcode").val()+'"/></td><td width="20%"><input type="text" name="itemname[]" class="form-control" value="'+$("#itemname").val()+'"/></td><td width="10%"><input type="text" name="qtycases[]" class="form-control" value="'+$("#qtycases").val()+'"/></td><td width="10%"><input type="text" name="qtypacks[]" class="form-control" value="'+$("#qtypacks").val()+'"/></td><td width="10%"><input type="text" name="price[]" class="form-control" value="'+$("#price").val()+'" onblur="updatePrice1(this.value,'+i+');"/></td><td width="10%"><input type="text" name="weight[]" class="form-control" value="'+$("#weight").val()+'"/></td><td width="5%"><input type="text" name="billedqty[]" class="form-control" value="'+$("#qty").val()+'"/></td><td><input type="hidden" name="taxrate[]" id="taxrate'+i+'" class="form-control" value="'+$("#taxrate").val()+'"/></td><input type="hidden" name="qty[]" id="qty'+i+'" class="form-control" value="'+$("#qty").val()+'"/><td></td><td></td><td width="5%"><input type="text" name="rate[]" id="rate'+i+'n" class="form-control" value="'+$("#rate").val()+'"/></td><td><a href="javascript:void(0);" class="remCF">Remove</a></td></tr>';
+var markup = '<tr><td width="10%"><input type="number" name="itemcode[]" class="form-control" value="'+$("#itemcode").val()+'"/></td><td width="20%"><input type="text" name="itemname[]" class="form-control" value="'+$("#itemname").val()+'"/></td><td><input type="text" name="qty[]" id="qty'+i+'" class="form-control" value="'+$("#qty").val()+'"/></td><td width="10%"><input type="text" name="price[]" class="form-control" value="'+$("#price").val()+'" onblur="updatePrice1(this.value,'+i+');"/></td><td width="5%"><input type="text" name="billedqty[]" class="form-control" value="'+$("#qty").val()+'"/><input type="hidden" name="taxrate[]" id="taxrate'+i+'" class="form-control" value="'+$("#taxrate").val()+'"/></td><td width="5%"><input type="text" name="rate[]" id="rate'+i+'n" class="form-control" value="'+$("#rate").val()+'"/></td><td><a href="javascript:void(0);" class="remCF">Remove</a></td></tr>';
 $("table tbody").append(markup);
-
 $("#itemname").val('');
 $("#qtyunits").val('');
 $("#qtypacks").val('');
