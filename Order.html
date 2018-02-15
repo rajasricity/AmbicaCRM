@@ -64,9 +64,9 @@
   </head>
   
   <body>
-<div class="rnd" id="add">
+<!-- <div class="rnd" id="add">
   <i class="fa fa-plus"></i>
-</div>       
+</div>  -->      
     <!-- Main Container -->
     <div id="main" class="main">
 
@@ -85,22 +85,24 @@
       <!-- Page Contents -->
       <div class="page">
         <!-- Your contents goes here! -->
-<br>
-<div class="container" style="padding:0px;">
 
+<div class="container-fluid" style="padding:0px;">
+<div style="background: #fff;color:#000;padding:15px;margin-bottom: 5px;">
+<table id="loadOrderData" style="margin-bottom: 0px;"></table>
+</div>
 <form id="corder">
 <input type="hidden" name="oid" id="oid"/>
 <div class="table table-responsive">
-<table class="table table-bordered" id="my-example">
+<table class="table table-bordered" id="my-example" style="width:1024px">
     <thead>
         <tr style="background-color: #9C2B76">
-            <th>Item Code</th>
-            <th>Item Name</th>
-            <th>Qty in Cases</th>
-            <th>Price</th>
-            <th>Billed Qty</th>
-            <th>Rate</th>
-            <th>Del</th>
+            <th width="7%">Item Code</th>
+            <th width="30%">Item Name</th>
+            <th width="10%">Qty</th>
+            <th width="10%">Price</th>
+            <th width="10%">Billed Qty</th>
+            <th width="10%">Rate</th>
+            <th width="10%">Del</th>
         </tr>
     </thead>
     <tbody style="background-color: #fff;color:#000"></tbody>
@@ -108,10 +110,8 @@
 <br>
 </div>
 <center><img src="img/preloader.gif" style="width:30px;height:30px;display:none" id="loader"></center>
-<CENTER>
-<!-- <button onclick="chageStatus();" class="btn btn-primary">GENERATE INVOICE</button> -->
-<input type="submit" name="submit" class="btn btn-primary pull-right" value="GENERATE INVOICE" id="gb"/>
-</CENTER>
+<button type="button" class="mybtn2" id="add">ADD PRODUCTS</button>
+<input type="submit" name="submit" class="mybtn pull-right" value="GENERATE INVOICE" id="gb"/>
 </form>
 
 
@@ -183,7 +183,7 @@
       <input type="hidden" name="billedqty" id="billedqty" class="form-control" placeholder="Billed Quantity"/>
       <input type="hidden" name="taxrate" id="taxrate" class="form-control" placeholder="Tax Rate"/>
       <input type="hidden" name="rate" id="rate" class="form-control" placeholder="Rate"/>
-      <input type="hidden" name="perbox" id="perbox" class="form-control" placeholder="Per Box"/>
+      <input type="text" name="perbox" id="perbox" class="form-control" placeholder="Per Box"/>
       <input type="hidden" name="itemcode" id="itemcode" class="form-control" placeholder="Item Code"/>
       </div>
       <div class="modal-footer">
@@ -236,7 +236,7 @@ $.ajax({
     console.log(str.Status);
   }
 });
-
+$("#loadOrderData").load(server+"getOrderByOrder.php?order="+localStorage.getItem("Order"));
 $.ajax({
           url:server+"getStatusByOrder.php",
           data:{"Order_No":localStorage.getItem("Order")},
@@ -282,11 +282,8 @@ $.ajax({
             //console.log(data);
                   var toAppend = '';
                      $.each(data,function(i,o){
-                       if(o.Status == 'Invoiced'){
-                        toAppend += '<tr><td>'+o.Item_Code+'</td><td>'+o.Item_Name+'</td><td>'+o.Qty_In_Cases+'</td><td>'+o.Qty_In_Packs+'</td><td>'+o.Amount+'</td><td>'+o.Weight_In_Kgs+'</td><td>'+o.Billd_Qty+'</td><td>'+o.CGST_Amnt+'</td><td>'+o.SGST_Amnt+'</td><td>'+o.IGST_Amnt+'</td><td>'+o.Rate+'</td><td></td></tr>';
-                       }else{
-                        toAppend += '<tr><td><input type="text" name="itemcode[]" value="'+o.Item_Code+'" style="color:#000"/></td><td><input type="text" name="itemname[]" value="'+o.Item_Name+'" style="color:#000"/></td><td><input type="text" name="qty[]" value="'+o.Qty_In_Cases+'" onblur="updateRate(this.value,'+i+')"/></td><td><input type="text" name="price[]" id="price'+i+'" value="'+o.Amount+'" style="color:#000"/></td><td><input type="text" name="billedqty[]" value="'+o.Billd_Qty+'"  style="color:#000"/></td><td><input type="text" name="rate[]" id="rate'+i+'" value="'+o.Rate+'" style="color:#000"/></td><td><a href="javascript:void(0);" class="remCF">Remove</a></td></tr>';
-                       }
+                        toAppend += '<tr><td><input type="text" name="itemcode[]" value="'+o.Item_Code+'" style="color:#000" readonly="readonly"/></td><td><input type="text" name="itemname[]" value="'+o.Item_Name+'" style="color:#000" readonly="readonly"/></td><td><input type="text" name="qty[]" id="qty'+i+'" value="'+o.Billd_Qty+'" onblur="updateRate(this.value,'+i+')"/><input type="hidden" name="cgst[]" id="cgst'+i+'" value="'+o.CGST_Per+'"/><input type="hidden" name="sgst[]" id="sgst'+i+'" value="'+o.SGST_Per+'"/><input type="hidden" name="igst[]" id="igst'+i+'" value="'+o.IGST_Per+'"/></td><td><input type="text" name="price[]" id="price'+i+'" value="'+o.Price+'" onblur="updateRate2(this.value,'+i+')" style="color:#000"/></td><td><input type="text" name="billedqty[]" value="'+o.Billd_Qty+'"  style="color:#000" readonly="readonly"/></td><td><input type="text" name="rate[]" id="rate'+i+'" value="'+o.Amount+'" style="color:#000" readonly="readonly"/></td><td><a href="javascript:void(0);" class="remCF">Remove</a></td></tr>';
+                       
                      
                     });
 
@@ -403,20 +400,39 @@ var button = document.getElementById('cn-button'),
 function updateRate(no,i){
       var price = $("#price"+i).val();
       var trate;
-      var cgst = $("#cgstp"+i).val();
-      var sgst = $("#sgstp"+i).val();
-      var igst = $("#igstp"+i).val();
+      var cgst = $("#cgst"+i).val();
+      var sgst = $("#sgst"+i).val();
+      var igst = $("#igst"+i).val();
       if(cgst != 0){
-        trate = cgst+sgst;
+        trate = parseFloat(cgst)+parseFloat(sgst);
       }else{
         trate = igst;
       }
-
       var total = price*no;
       var per = ((price*no)*trate)/100;
       var fp = total+parseInt(per);
-      console.log(fp);
+      console.log(trate);
       $("#rate"+i).val(parseInt(fp));
+      $("#billedqty"+i).val(no);
+    }
+
+  function updateRate2(price,i){
+      var no = $("#qty"+i).val();
+      var trate;
+      var cgst = $("#cgst"+i).val();
+      var sgst = $("#sgst"+i).val();
+      var igst = $("#igst"+i).val();
+      if(cgst != 0){
+        trate = parseFloat(cgst)+parseFloat(sgst);
+      }else{
+        trate = igst;
+      }
+      console.log(no);
+      var total = price*no;
+      var per = ((price*no)*trate)/100;
+      var fp = total+parseInt(per);
+      // console.log(fp);
+      $("#rate"+i).val(fp);
       $("#billedqty"+i).val(no);
     }
 
@@ -474,7 +490,8 @@ function updateRate(no,i){
       var total = price*no;
       var per = ((price*no)*trate)/100;
       var fp = total+per;
-      $("#rate").val(fp);
+      //$("#rate").val(fp);
+      $("#rate").val(total);
       $("#billedqty").val(no);
       $("#qtycases").val(no);
     }
@@ -504,7 +521,8 @@ function updatePrice1(price,i){
       var total = price*no;
       var per = ((price*no)*trate)/100;
       var fp = total+per;
-      $("#rate"+i+"n").val(fp);
+      //$("#rate"+i+"n").val(fp);
+      $("#rate"+i+"n").val(total);
       console.log(price+","+no+","+trate+","+per+","+fp);
     }
   </script>

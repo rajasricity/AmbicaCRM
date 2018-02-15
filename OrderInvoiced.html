@@ -12,13 +12,27 @@
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
 
+    <!-- SEO: If mobile URL is different from desktop URL, add a canonical link to the desktop page -->
+    <!--
+    <link rel="canonical" href="http://www.example.com/" >
+    -->
+
+    <!-- For iOS web apps. Delete if not needed. https://github.com/h5bp/mobile-boilerplate/issues/94 -->
+    <!--
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="">
+    -->
+
     <!-- Fonts -->
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,100' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+    <!-- Icons -->
+
 
     <!-- Stylesheets -->
-     <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/materialize.min.css">
     <link rel="stylesheet" href="css/swipebox.min.css">
     <link rel="stylesheet" href="css/swiper.min.css">
@@ -27,14 +41,32 @@
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="bootstrap/css/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="css/demo.css" />
-    <link rel="stylesheet" type="text/css" href="css/component1.css" />
+	  <link rel="stylesheet" type="text/css" href="css/component1.css" />
     <script src="js/vendor/modernizr-2.7.1.min.js"></script>
     <script src="js/polyfills.js"></script>
     <link rel="stylesheet" type="text/css" href="css/datatable.css">
+    <style>
+      .rnd{
+    font-size: 1.6em;
+    width: 2em;
+    text-align: center;
+    line-height: 2em;
+    background: #905FAA;
+    color: #fff;
+    border-radius: 1em; /* or 50% width & line-height */
+    position: absolute;
+    bottom:15px;
+    right:15px;
+    z-index: 9999;
+  }
+
+    </style>
   </head>
   
   <body>
-        
+<!-- <div class="rnd" id="add">
+  <i class="fa fa-plus"></i>
+</div>  -->      
     <!-- Main Container -->
     <div id="main" class="main">
 
@@ -53,48 +85,56 @@
       <!-- Page Contents -->
       <div class="page">
         <!-- Your contents goes here! -->
-<br>
-<div class="container" style="padding:0px;">
-<div class="table-responsive" style="padding:0px !important;">
-<table class="table table-bordered" id="my-example">
+
+<div class="container-fluid" style="padding:0px;">
+<div style="margin-bottom: 5px;">
+<table id="loadInvData" style="margin-bottom: 0px;"></table>
+</div>
+<div class="table table-responsive">
+<table class="table table-bordered" id="my-example" style="width:1024px">
     <thead>
         <tr style="background-color: #9C2B76">
-            <th>Invoice No</th>
-            <th>Invoice Date</th>
-            <th>Sub Total</th>
-            <th>Tax Amount</th>
-            <th>Order Amount</th>
+            <th width="7%">Item Code</th>
+            <th width="30%">Item Name</th>
+            <th width="10%">Qty in Cases</th>
+            <th width="10%">Price</th>
+            <th width="10%">Billed Qty</th>
+            <th width="10%">Amount</th>
         </tr>
     </thead>
     <tbody style="background-color: #fff;color:#000"></tbody>
 </table>
+<br>
 </div>
 
+
+
+</div>
 
 <div class="component">
-        <!-- Start Nav Structure -->
-        <button class="cn-button" id="cn-button">+</button>
-        <div class="cn-wrapper" id="cn-wrapper">
-            <ul>
-              <li><a href="Screen_DB.html" class="waves-effect"><i class="fa fa-home"></i></a></li>
-              <li><a href="CreateOrder_Db.html" class="waves-effect"><i class="fa fa-edit"></i></a></li>
-              <li><a href="View_Orders_DB.html" class="waves-effect"><i class="fa fa-eye"></i></a></li>
-              <li><a href="Profile_DB.html"><i class="fa fa-user-circle-o"></i></a></li>
-              <li><a href="#"><i class="fa fa-bar-chart-o"></i></a></li>
-             </ul>
-        </div>
-        <div id="cn-overlay" class="cn-overlay"></div>
-        <!-- End Nav Structure -->
-      </div>
-</div>
+				<!-- Start Nav Structure -->
+				<button class="cn-button" id="cn-button">+</button>
+				<div class="cn-wrapper" id="cn-wrapper">
+				    <ul>
+				      <li><a href="Screen_DB.html" class="waves-effect"><i class="fa fa-home"></i></a></li>
+                <li><a href="#" class="waves-effect"><i class="fa fa-edit"></i></a></li>
+                <li><a href="View_Orders_DB.html" class="waves-effect"><i class="fa fa-eye"></i></a></li>
+				      <li><a href="#"><i class="fa fa-user-circle-o"></i></a></li>
+				      <li><a href="#"><i class="fa fa-bar-chart-o"></i></a></li>
+				     </ul>
+				</div>
+				<div id="cn-overlay" class="cn-overlay"></div>
+				<!-- End Nav Structure -->
+			</div>
 
+    
+</div>
       </div> 
       <!-- End of Page Contents -->
 
       <!-- Sidebars -->
       <!-- Left Sidebar -->
       <ul id="slide-out-left" class="side-nav collapsible">
-        
         <li class="sidenav-avatar" style="background-color: #BCBADE">
           <div class="opacity-overlay-gradient"></div>
           <div class="bottom">
@@ -107,9 +147,6 @@
         <div id="dbleft"></div>
       </ul>
 
-
-      <!-- End of Sidebars -->
-        
     </div>
     <!-- End of Main Container -->
     
@@ -125,10 +162,40 @@
     <script src="js/vendor/swiper.min.js"></script>
     <script src="js/vendor/materialize.min.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/datatables.js"></script>
-    <script src="js/custome.js"></script>
+     <script src="js/datatables.js"></script>
+     <script src="js/custome.js"></script>
     <script>
         $(function(){
+if(localStorage.getItem("Role") != null){
+  /*if(localStorage.getItem('Role') == 'SR'){
+    location.href="Screen_SR.html";
+  }*/
+}else{
+    location.href="index.html";
+}
+
+$("#oid").val(localStorage.getItem("Order"));
+$("#loadInvData").load(server+"getOrderByInv.php?order="+localStorage.getItem("Order"));
+
+$.ajax({
+          url:server+"getInvoiceOrders.php",
+          data:{"order":localStorage.getItem("Order")},
+          type:"POST",
+          beforeSend: function(){
+           $("#ploader").show();
+          },
+          success:function(data){
+            $("#ploader").hide();
+            console.log(data);
+                  var toAppend = '';
+                     $.each(data,function(i,o){
+                        toAppend += '<tr><td>'+o.Item_Code+'</td><td>'+o.Item_Name+'</td><td>'+o.Qty_In_Cases+'</td><td>'+o.Price+'</td><td>'+o.Billd_Qty+'</td><td>'+o.Amount+'</td></tr>';
+                    });
+
+                   $('#my-example').append(toAppend);
+          }
+          });    
+
 var button = document.getElementById('cn-button'),
     wrapper = document.getElementById('cn-wrapper'),
     overlay = document.getElementById('cn-overlay');
@@ -167,36 +234,8 @@ var button = document.getElementById('cn-button'),
     classie.remove(wrapper, 'opened-nav');
   }
   document.addEventListener('click', closeNav);
-
-// /Date(1504086189000)/
-// var dt = "/Date(1504086189000)/";
-//  var arr = dt.split(/[()]/);
-// var dt1 = arr[1];
-// //alert(typeof(parseInt(dt1)));
-// alert(new Date(parseInt(dt1)).toDateString());
-
- var table = $('#my-example').DataTable({
-         "bProcessing": true,
-         "sAjaxSource": server+"getInvoicedOrders.php?Customer_Code="+localStorage.getItem("Customer_Code"),
-         "aoColumns": [
-               { mData: 'Invoice_No' } ,
-               { mData: 'Invoice_Date' },
-               { mData: 'Sub_Total' },
-               { mData: 'Tax_Amount' },
-               { mData: 'Total_Order_Amount' }
-             ],
-             "aaSorting": [[ 0, "desc" ]],
-              "bLengthChange": false,
-      });
- // $('#my-example tbody').on('click', 'tr', function () {
- //        var data = table.row( this ).data();
- //        //alert( 'You clicked on '+data[0]+'\'s row' );
- //        localStorage.setItem("OrderDB",data.Order_No);
- //        location.href="Order.html";
- //    } );
-
-
-    });
-    </script>
+   
+        });
+  </script>
   </body>
 </html>

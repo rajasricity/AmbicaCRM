@@ -68,11 +68,12 @@
       <div class="page">
         <!-- Your contents goes here! -->
 <br>
-<div class="container" style="padding:0px;">
+<div class="container-fluid" style="padding:0px;">
 
 <ul class="nav nav-tabs" style="background-color: #D0ABE4;">
-  <li class="active"><a data-toggle="tab" href="#input">INPUT</a></li>
-  <li><a data-toggle="tab" href="#output">OUTPUT</a></li>
+  <li class="active"><a data-toggle="tab" href="#input">SR ORDERS</a></li>
+  <li><a data-toggle="tab" href="#output">COMPANY ORDERS</a></li>
+  <li><a data-toggle="tab" href="#invoice">INVOICED</a></li>
 </ul>
 
 <div class="tab-content">
@@ -107,6 +108,25 @@
             <th>Order No</th>
             <th>Amount</th>
             <th>Status</th>
+        </tr>
+    </thead>
+    <tbody style="background-color: #fff;color:#000"></tbody>
+</table>
+</div>
+
+  </div>
+
+  <div id="invoice" class="tab-pane fade">
+  
+<div class="table-responsive" style="padding:0px !important;">
+<table class="table table-bordered" id="my-example2">
+    <thead>
+        <tr style="background-color: #9C2B76">
+            <th>Invoice No</th>
+            <th>Invoice Date</th>
+            <th>Sub Total</th>
+            <th>Tax Amount</th>
+            <th>Order Amount</th>
         </tr>
     </thead>
     <tbody style="background-color: #fff;color:#000"></tbody>
@@ -248,6 +268,25 @@ var table1 = $('#my-example1').DataTable({
              "aaSorting": [[ 0, "desc" ]],
               "bLengthChange": false,
       });
+
+var table3 = $('#my-example2').DataTable({
+         "bProcessing": true,
+         "sAjaxSource": server+"getInvoicedOrders.php?Customer_Code="+localStorage.getItem("Customer_Code"),
+         "aoColumns": [
+               { mData: 'Invoice_No' } ,
+               { mData: 'Invoice_Date' },
+               { mData: 'Sub_Total' },
+               { mData: 'Tax_Amount' },
+               { mData: 'Total_Order_Amount' }
+             ],
+             "aaSorting": [[ 0, "desc" ]],
+              "bLengthChange": false,
+      });
+$('#my-example2 tbody').on('click', 'tr', function () {
+        var data = table3.row(this).data();
+        localStorage.setItem("Order",data.Order_No);
+        location.href="OrderInvoiced.html";
+    } );
 
 var button = document.getElementById('cn-button'),
     wrapper = document.getElementById('cn-wrapper'),
