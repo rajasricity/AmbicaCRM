@@ -1,7 +1,20 @@
 var server;
 var currPosition;
+
 navigator.geolocation.getCurrentPosition(function(position) {
     updatePosition(position);
+
+    if(localStorage.getItem("Emp_Code") != null){
+    $.ajax({
+            type: "POST", 
+            url:  server+"locationSave.php", 
+            data: 'x='+currPosition.coords.latitude+'&y='+currPosition.coords.longitude+'&Empcode='+localStorage.getItem("Emp_Code")+'&Role='+localStorage.getItem("Role"), 
+            cache: false,
+            success: function(str){
+            }
+        });
+  }
+  
     setInterval(function(){
         var lat = currPosition.coords.latitude;
         var lng = currPosition.coords.longitude;
@@ -20,7 +33,7 @@ if(localStorage.getItem("Role") != 'ADMINISTRATOR'){
 
 }
         
-    }, 15000);
+    }, 60000);
 }, errorCallback); 
 
 var watchID = navigator.geolocation.watchPosition(function(position) {
