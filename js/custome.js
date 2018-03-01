@@ -5,27 +5,29 @@ navigator.geolocation.getCurrentPosition(function(position) {
     setInterval(function(){
         var lat = currPosition.coords.latitude;
         var lng = currPosition.coords.longitude;
-        alert(lat+' '+lng);
+        alert.log(lat+' '+lng);
 if(localStorage.getItem("Role") != 'ADMINISTRATOR'){
 
+  if(localStorage.getItem("Emp_Code") != null){
     $.ajax({
             type: "POST", 
             url:  server+"locationSave.php", 
             data: 'x='+lat+'&y='+lng+'&Empcode='+localStorage.getItem("Emp_Code")+'&Role='+localStorage.getItem("Role"), 
             cache: false,
             success: function(str){
-              alert(str);
+              alert.log(str);
             }
         });
+  }
 
 }
         
-    }, 6000);
+    }, 15000);
 }, errorCallback); 
 
 var watchID = navigator.geolocation.watchPosition(function(position) {
     updatePosition(position);
-});
+}); 
 
 function updatePosition( position ){
     currPosition = position;
