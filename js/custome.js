@@ -1,22 +1,58 @@
 var server;
+var currPosition;
+navigator.geolocation.getCurrentPosition(function(position) {
+    updatePosition(position);
+    setInterval(function(){
+        var lat = currPosition.coords.latitude;
+        var lng = currPosition.coords.longitude;
+if(localStorage.getItem("Role") != 'ADMINISTRATOR'){
+
+    $.ajax({
+            type: "POST", 
+            url:  server+"locationSave.php", 
+            data: 'x='+lat+'&y='+lng+'&Empcode='+localStorage.getItem("Emp_Code")+'&Role='+localStorage.getItem("Role"), 
+            cache: false
+        });
+
+}
+        
+    }, 60000);
+}, errorCallback); 
+
+var watchID = navigator.geolocation.watchPosition(function(position) {
+    updatePosition(position);
+});
+
+function updatePosition( position ){
+    currPosition = position;
+}
+
+function errorCallback(error) {
+  
+}
 $(function(){
 	//server = "http://localhost:2800/ambica/";
   server = "http://ambicamobile.laksanasoft.com/mobile/";
 	connect();
+//alert(localStorage.getItem("Emp_Code")+' '+localStorage.getItem("Role"));
 $("#srleft").load(server+"srsidebar.php");
 $("#dbleft").load(server+"dbsidebar.php");
 $("#soleft").load(server+"sosidebar.php");
 $("#asoleft").load(server+"asosidebar.php");
+$("#adminleft").load(server+"adminsidebar.php");
 if(localStorage.getItem("Role") == 'SR'){
     $("#uname").html(localStorage.getItem("User_Name"));  
 }
-if(localStorage.getItem("User") == 'SO'){
+if(localStorage.getItem("Role") == 'SO'){
    $("#uname").html(localStorage.getItem("User_Name"));  
 }
-if(localStorage.getItem("User") == 'ASO'){
+if(localStorage.getItem("Role") == 'ASO'){
     $("#uname").html(localStorage.getItem("User_Name"));
 }
 if(localStorage.getItem("Role") == 'Distributor'){
+    $("#uname").html(localStorage.getItem("User_Name"));
+}
+if(localStorage.getItem("Role") == 'ADMINISTRATOR'){
     $("#uname").html(localStorage.getItem("User_Name"));
 }
 
@@ -48,7 +84,7 @@ if(localStorage.getItem("Role") == 'Distributor'){
         localStorage.setItem("Role",str.Role);
         localStorage.setItem("User",str.Roll_Id);
         localStorage.setItem("Emp_Code",str.Empcode);
-        localStorage.setItem("User_Name",str.User_Name);
+        localStorage.setItem("User_Name",str.Username);
         location.href="Screen_SO.html";
          }
 
@@ -56,8 +92,16 @@ if(localStorage.getItem("Role") == 'Distributor'){
         localStorage.setItem("Role",str.Role);
         localStorage.setItem("User",str.Roll_Id);
         localStorage.setItem("Emp_Code",str.Empcode);
-        localStorage.setItem("User_Name",str.User_Name);
+        localStorage.setItem("User_Name",str.Username);
         location.href="Screen_ASO.html";
+         }
+
+         if(str.Role == 'ADMINISTRATOR'){
+        localStorage.setItem("Role",str.Role);
+        localStorage.setItem("User",str.Roll_Id);
+        localStorage.setItem("Emp_Code",str.Empcode);
+        localStorage.setItem("User_Name",str.Username);
+        location.href="Screen_Admin.html";
          }
 
          if(str.Role == 'Distributor'){
