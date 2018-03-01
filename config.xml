@@ -2,12 +2,11 @@
 <widget id="com.phonegap.ambica" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>Ambica CRM</name>
     <description>
-        Panaromic
+        Laksana IT Solutions
     </description>
     <author email="sanarajasekhar@gmail.com" href="http://spetinfo.com">
         Ambica Enterprises
     </author>
-    <splash src="resources/splash.png" />
     <platform name="android">
     <icon src="resources/ldpi.png" density="ldpi" />
     <icon src="resources/mdpi" density="mdpi" />
