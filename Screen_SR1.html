@@ -12,13 +12,27 @@
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
 
+    <!-- SEO: If mobile URL is different from desktop URL, add a canonical link to the desktop page -->
+    <!--
+    <link rel="canonical" href="http://www.example.com/" >
+    -->
+
+    <!-- For iOS web apps. Delete if not needed. https://github.com/h5bp/mobile-boilerplate/issues/94 -->
+    <!--
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="">
+    -->
+
     <!-- Fonts -->
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,100' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+    <!-- Icons -->
+
 
     <!-- Stylesheets -->
-     <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/materialize.min.css">
     <link rel="stylesheet" href="css/swipebox.min.css">
     <link rel="stylesheet" href="css/swiper.min.css">
@@ -27,10 +41,11 @@
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="bootstrap/css/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="css/demo.css" />
-    <link rel="stylesheet" type="text/css" href="css/component1.css" />
+	  <link rel="stylesheet" type="text/css" href="css/component1.css" />
     <script src="js/vendor/modernizr-2.7.1.min.js"></script>
     <script src="js/polyfills.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/datatable.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    
   </head>
   
   <body>
@@ -51,46 +66,33 @@
       <!-- End of Toolbar -->
 
       <!-- Page Contents -->
-      <div class="page">
-        <!-- Your contents goes here! -->
+      <div class="page">        <!-- Your contents goes here! -->
 <br>
 <div class="container" style="padding:0px;">
-<div class="table-responsive" style="padding:0px !important;">
-<table class="table table-bordered" id="my-example">
-    <thead>
-        <tr style="background-color: #9C2B76">
-            <th>Date</th>
-            <th>Order No</th>
-            <th>Distributor</th>
-            <th>Total Qty in Cases</th>
-            <th>Sub Total</th>
-            <th>Order Amount</th>
-            <th>Delivery Date</th>
-            <th>Status</th>
-        </tr>
-    </thead>
-    <tbody style="background-color: #fff;color:#000"></tbody>
-</table>
-</div>
+<h4 style="color:#000;text-align: center">Durbar : Sales vs Targets </h4>
+<div id="piechart" style="width: 100%;"></div>
 
-
+<h4 style="color:#000;text-align: center">Sented : Sales vs Targets </h4>
+<div id="piechart1" style="width: 100%;"></div>
+<input type="date" name="fdate" class="form-control"/>
 <div class="component">
-        <!-- Start Nav Structure -->
-        <button class="cn-button" id="cn-button">+</button>
-        <div class="cn-wrapper" id="cn-wrapper">
-            <ul>
-        <li><a href="Screen_SO.html" class="waves-effect"><i class="fa fa-home"></i></a></li>
-                <li><a href="#" class="waves-effect"><i class="fa fa-edit"></i></a></li>
-                <li><a href="View_Orders_SO.html" class="waves-effect"><i class="fa fa-eye"></i></a></li>
-              <li><a href="#"><i class="fa fa-user-circle-o"></i></a></li>
-              <li><a href="#"><i class="fa fa-bar-chart-o"></i></a></li>
-             </ul>
-        </div>
-        <div id="cn-overlay" class="cn-overlay"></div>
-        <!-- End Nav Structure -->
-      </div>
-</div>
+				<!-- Start Nav Structure -->
+				<button class="cn-button" id="cn-button">+</button>
+				<div class="cn-wrapper" id="cn-wrapper">
+				    <ul>
+				<li><a href="Screen_SR.html" class="waves-effect"><i class="fa fa-home"></i></a></li>
+        <li><a href="CreateOrder_Sr.html" class="waves-effect"><i class="fa fa-edit"></i></a></li>
+        <li><a href="View_Orders_SR.html" class="waves-effect"><i class="fa fa-eye"></i></a></li>
+				      <li><a href="Profile_SR.html"><i class="fa fa-user-circle-o"></i></a></li>
+				      <li><a href="#"><i class="fa fa-bar-chart-o"></i></a></li>
+				     </ul>
+				</div>
+				<div id="cn-overlay" class="cn-overlay"></div>
+				<!-- End Nav Structure -->
+			</div>
 
+    
+</div>
       </div> 
       <!-- End of Page Contents -->
 
@@ -107,12 +109,9 @@
             <span id="uname"></span></span>
           </div>
         </li>
-        <div id="soleft"></div>
+        <div id="srleft"></div>
       </ul>
 
-
-      <!-- End of Sidebars -->
-        
     </div>
     <!-- End of Main Container -->
     
@@ -128,16 +127,15 @@
     <script src="js/vendor/swiper.min.js"></script>
     <script src="js/vendor/materialize.min.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/datatables.js"></script>
     <script src="js/custome.js"></script>
     <script>
         $(function(){
-// /Date(1504086189000)/
-// var dt = "/Date(1504086189000)/";
-//  var arr = dt.split(/[()]/);
-// var dt1 = arr[1];
-// //alert(typeof(parseInt(dt1)));
-// alert(new Date(parseInt(dt1)).toDateString());
+          
+if(localStorage.getItem("Role") != null){
+  
+}else{
+    location.href="index.html";
+}
 var button = document.getElementById('cn-button'),
     wrapper = document.getElementById('cn-wrapper'),
     overlay = document.getElementById('cn-overlay');
@@ -176,30 +174,8 @@ var button = document.getElementById('cn-button'),
     classie.remove(wrapper, 'opened-nav');
   }
   document.addEventListener('click', closeNav);
- var table = $('#my-example').DataTable({
-         "bProcessing": true,
-         "sAjaxSource": server+"GetOrdersSo.php?SalesmenCode="+localStorage.getItem("Emp_Code"),
-         "aoColumns": [
-               { mData: 'Order_Date' } ,
-               { mData: 'Order_No' },
-               { mData: 'Distributor' },
-               { mData: 'Total_Qty_In_Cases' },
-               { mData: 'Sub_Toal' },
-               { mData: 'Total_Order_Amount' },
-               { mData: 'Delivery_Dt' },
-               { mData: 'Status' }
-             ],
-             "aaSorting": [[ 0, "desc" ]],
-          "bLengthChange": false,
-      });
-
- $('#my-example tbody').on('click', 'tr', function () {
-        var data = table.row( this ).data();
-        localStorage.setItem("Order",data.Order_No);
-        location.href="OrderReviewed.html";
-    } );
-
-    });
+   
+        });
     </script>
   </body>
 </html>

@@ -44,6 +44,7 @@
 	  <link rel="stylesheet" type="text/css" href="css/component1.css" />
     <script src="js/vendor/modernizr-2.7.1.min.js"></script>
     <script src="js/polyfills.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   </head>
   
   <body>
@@ -68,6 +69,13 @@
         <!-- Your contents goes here! -->
 <br>
 <div class="container">
+
+<h4 style="color:#000;text-align: center">Durbar : Sales vs Targets </h4>
+<div id="piechart" style="width: 100%;"></div>
+
+<h4 style="color:#000;text-align: center">Sented : Sales vs Targets </h4>
+<div id="piechart1" style="width: 100%;"></div>
+<input type="date" name="fdate" id="fdate" class="form-control" onchange="drawChart();"/>
 
 <div class="component">
 				<!-- Start Nav Structure -->
@@ -122,6 +130,87 @@
     <script src="js/vendor/materialize.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/custome.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      var now = new Date();
+    var month = (now.getMonth() + 1);               
+    var day = now.getDate();
+    if (month < 10) 
+        month = "0" + month;
+    if (day < 10) 
+        day = "0" + day;
+    var today = now.getFullYear() + '-' + month + '-' + day;
+    $('#fdate').val(today);
+    
+      function drawChart() {
+       var fdate = $("#fdate").val(); 
+        var options = {
+          chartArea:{left:10,top:20,width:"100%",height:"60%"},
+          legend: {'position': 'bottom'},
+          backgroundColor: "transparent"
+        };
+
+$.ajax({
+            url: server+"darbarSoReports.php?SalesmenCode="+localStorage.getItem("Emp_Code")+"&fdate="+fdate,
+            dataType: "json",
+            type: "GET",
+            success: function (data) {
+                var arrValues = [['','']];        // DEFINE AN ARRAY.
+                var iCnt = 0;
+                $.each(data, function () {
+                    // POPULATE ARRAY WITH THE EXTRACTED DATA.
+
+                    arrValues.push([data[iCnt].Title,data[iCnt].Darbar]);
+                    iCnt += 1;
+                });
+
+                // CREATE A DataTable AND ADD THE ARRAY (WITH DATA) IN IT.
+                var figures = google.visualization.arrayToDataTable(arrValues)
+
+                // THE TYPE OF CHART (PieChart IN THIS EXAMPLE).
+                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+                chart.draw(figures, options);      // DRAW GRAPH WITH THE DATA AND OPTIONS.
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Got an Error');
+            }
+        });
+
+
+$.ajax({
+            url: server+"sentedSoReports.php?SalesmenCode="+localStorage.getItem("Emp_Code")+"&fdate="+fdate,
+            dataType: "json",
+            type: "GET",
+            success: function (data) {
+                var arrValues = [['','']];        // DEFINE AN ARRAY.
+                var iCnt = 0;
+                console.log(data);
+                $.each(data, function () {
+                    // POPULATE ARRAY WITH THE EXTRACTED DATA.
+
+                    arrValues.push([data[iCnt].Title,data[iCnt].Darbar]);
+                    iCnt += 1;
+                });
+
+                // CREATE A DataTable AND ADD THE ARRAY (WITH DATA) IN IT.
+                var figures = google.visualization.arrayToDataTable(arrValues)
+
+                // THE TYPE OF CHART (PieChart IN THIS EXAMPLE).
+                var chart1 = new google.visualization.PieChart(document.getElementById('piechart1'));
+
+                chart1.draw(figures, options);      // DRAW GRAPH WITH THE DATA AND OPTIONS.
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Got an Error');
+            }
+        });
+
+
+
+      }
+    </script>
     <script>
         $(function(){
 if(localStorage.getItem("Role") != null){

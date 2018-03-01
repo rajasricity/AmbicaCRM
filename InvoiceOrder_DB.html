@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title>Ambica Darbar Batti</title>
+    <meta name="description" content="Ambica Darbar Batti">
+    <meta name="Ambica Darbar Batti" content="True">
+    <meta name="MobileOptimized" content="320">
+   <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0"/>
+    <meta name="msapplication-TileColor" content="#222222">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- SEO: If mobile URL is different from desktop URL, add a canonical link to the desktop page -->
+    <!--
+    <link rel="canonical" href="http://www.example.com/" >
+    -->
+
+    <!-- For iOS web apps. Delete if not needed. https://github.com/h5bp/mobile-boilerplate/issues/94 -->
+    <!--
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="">
+    -->
+
+    <!-- Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,100' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+    <!-- Icons -->
+
+    <!-- Stylesheets -->
+   <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/materialize.min.css">
+    <link rel="stylesheet" href="css/swipebox.min.css">
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="css/component1.css" />
+    <script src="js/vendor/modernizr-2.7.1.min.js"></script>
+    
+  <style>
+  .rnd{
+    font-size: 1.6em;
+    width: 2em;
+    text-align: center;
+    line-height: 2em;
+    background: #905FAA;
+    color: #fff;
+    border-radius: 1em; /* or 50% width & line-height */
+    position: absolute;
+    bottom:15px;
+    right:15px;
+    z-index: 9999;
+  }
+
+  </style>  
+  </head>
+  
+  <body>
+<div class="rnd" id="add">
+  <i class="fa fa-plus"></i>
+</div>
+
+    <!-- Main Container -->
+    <div id="main" class="main">
+
+      <!-- Toolbar -->
+      <div id="toolbar" class="primary-color z-depth-1">
+        <div class="open-left" id="open-left" data-activates="slide-out-left">
+          <i class="fa fa-bars" style="font-size:20px;margin-top:22px;"></i>
+        </div>
+        <h1 class="title">Ambica CRM</h1>
+        <div class="open-right" id="open-right" data-activates="slide-out">
+          &nbsp;
+        </div>
+      </div>
+      <!-- End of Toolbar -->
+
+      <!-- Page Contents -->
+      <div class="page">
+        <!-- Your contents goes here! -->
+                                                  <br>
+<div class="container" style="padding:0px;">
+<form id="corder">
+<div id="first">
+<input type="hidden" name="dis" id="dis"/>
+<input type="hidden" name="oid" id="oid"/>
+<input type="hidden" name="oct" id="oct" value="0"/>
+<div id="second">
+<div class="table-responsive" style="z-index:999">
+  <table class="table table-bordered" style="width:1500px;color:#000;">
+<thead>
+    <tr class="info">
+        <th>Item Code</th><th>Item Name</th><th>Quantity</th><th>Price</th><th>Billed Qty</th><th>Tax Rate</th><th>Rate</th><th>Per</th><th>Remove</th>
+    </tr>
+</thead>
+<tbody></tbody>
+  </table>
+<br>
+</div>
+</div>
+<input type="submit" name="submit" class="btn btn-primary" value="CREATE ORDER"/>
+<center><img src="img/preloader.gif" style="width:40px;height:40px;display:none" id="loader"/></center>
+</form>
+</div>
+      </div>
+
+      <!-- End of Page Contents -->
+
+      <!-- Sidebars -->
+      <!-- Left Sidebar -->
+      <ul id="slide-out-left" class="side-nav collapsible">
+        
+        <li class="sidenav-avatar" style="background-color: #BCBADE">
+          <div class="opacity-overlay-gradient"></div>
+          <div class="bottom">
+            <img src="img/user.png" alt="" class="avatar">
+            <!-- Dropdown Trigger -->
+            <span class="dropdown-button waves-effect waves-light" data-activates="dropdown1">
+            <span id="uname"></span></span>
+          </div>
+        </li>
+        <div id="dbleft"></div>
+      </ul>
+
+<div id="itemModal" class="modal fade" role="dialog" style="width:100%;background-color: transparent;">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content" style="padding:0px;">
+      <div class="modal-header" style="background-color: #905FAA;color:#fff">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">ADD PRODUCT</h4>
+      </div>
+      <div class="modal-body">
+<select name="group" id="group" class="form-control" onchange="showProducts(this.value)">
+    <option value="">Select Group</option>
+</select>
+<br>
+<div id="sdata" style="margin-bottom:10px;">
+<select name="product" id="product" class="form-control" onchange="doOperation(this.value)" tabindex="1">
+  <option value="">CHOOSE ITEM</option>
+</select>
+</div>
+      <input type="text" name="qty" id="qty" class="form-control" placeholder="Quantity" onblur="updatePrice(this.value);"/>
+      <input type="hidden" name="itemname" id="itemname" class="form-control" placeholder="Item Name"/>
+      <!-- <input type="hidden" name="qtycases" id="qtycases" class="form-control" placeholder="Quantity in Cases" tabindex="2"/>
+      <input type="hidden" name="qtyunits" id="qtyunits" class="form-control" placeholder="Quantity in Units"/>
+      <input type="hidden" name="qtypacks" id="qtypacks" class="form-control" placeholder="Quantity in Packs"/> -->
+      <input type="text" name="price" id="price" class="form-control" placeholder="Price" readonly="readonly" />
+      <!-- <input type="hidden" name="weight" id="weight" class="form-control" placeholder="Weight in Kgs"/>
+      <input type="hidden" name="actualqty" id="actualqty" class="form-control" placeholder="Actual Quantity"/> -->
+      <input type="hidden" name="billedqty" id="billedqty" class="form-control" placeholder="Billed Quantity"/>
+      <input type="hidden" name="taxrate" id="taxrate" class="form-control" placeholder="Tax Rate"/>
+      <input type="hidden" name="rate" id="rate" class="form-control" placeholder="Rate"/>
+      <input type="text" name="perbox" id="perbox" class="form-control" placeholder="Per Box"/>
+      <input type="hidden" name="itemcode" id="itemcode" class="form-control" placeholder="Item Code"/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal" onclick="addData2Row();" style="margin-left:10px;">Add</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <img src="img/preloader.gif" style="width:20px;height:20px;display:none" id="ploader">
+      </div>
+    </div>
+
+  </div>
+</div>
+    </div>
+
+    <!-- End of Main Container -->
+    
+    <!-- Scripts -->
+    <script src="js/vendor/jquery-2.1.0.min.js"></script>
+    <script src="bootstrap/js/bootstrap.js"></script>
+    <script src="js/helper.js"></script>
+    <script src="js/vendor/HeadsUp.js"></script>
+    <script src="js/vendor/chart.min.js"></script>
+    <script src="js/vendor/jquery.mixitup.min.js"></script>
+    <script src="js/vendor/jquery.swipebox.min.js"></script>
+    <script src="js/vendor/masonry.min.js"></script>
+    <script src="js/vendor/swiper.min.js"></script>
+    <script src="js/vendor/materialize.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/custome.js"></script>
+    <script>
+        $(function(){
+         $("#add").on('click', function(e){
+           e.preventDefault();
+           $("#itemModal").modal("show");
+        });
+        $("#dis").val(localStorage.getItem("Customer_Code"));
+        $("#oid").val(localStorage.getItem("Order"));
+        $("#corder").on('submit', function(e){
+           e.preventDefault();
+
+           if($("#oct").val() != '0'){
+
+var fdata= $("#corder").serialize();
+           $.ajax({
+              url:server+"insertInvoice_DB.php",
+              data:fdata,
+              type:"POST",
+              beforeSend:function(){
+                $("#loader").show();
+              },
+              success: function(str){
+                $("#loader").hide();
+                console.log(str);
+                if(str.Status == 'Success'){
+                location.href='Screen_DB.html';
+                }else{
+                  alert("Sorry, error happens");
+                }
+              },
+              error: function(jqXHR, status, error){
+            $("#loader").hide();
+            alert(jqHXR+" -- "+status+" -- "+error);
+       }
+           });
+
+           }else{
+            alert("Please Select atleast One Product to make Order");
+           }
+
+        });
+        
+
+
+          $.ajax({
+          url:server+"GetGroups.php",
+          success:function(data){
+                  var toAppend = '';
+                     $.each(data,function(i,o){
+                     toAppend += '<option value="'+o.Groupid+'">'+o.Groupname+'</option>';
+                    });
+
+                   $('#group').append(toAppend);
+
+          }
+          });
+
+    $("table tbody").on('click','.remCF',function(){
+        $(this).parent().parent().remove();
+    });
+    });
+
+    function updateSale(did){
+      console.log(did);
+    $.ajax({
+          url:server+"getSaletype.php",
+          data:{"Customer_Id":did},
+          type:"POST",
+          success:function(data){
+            console.log(data);
+            if(data.length>0){
+              $("#saletype").val(data[0].Prefix);  
+            }else{
+              $("#saletype").val('');
+            }
+            
+            }
+          });
+
+    }
+
+
+    function addItems(icode,iname,nunits,npacks,weight,cunits,price){
+      $("#sdata").hide();
+      $("#itemname").val(iname);
+      $("#qtyunits").val(nunits);
+      $("#qtypacks").val(npacks);
+      $("#price").val(nunits);
+      $("#weight").val(weight);
+      $("#actualqtyunits").val(nunits);
+      $("#perbox").val(cunits);
+      $("#itemcode").val(icode);
+      //console.log(icode+","+iname+","+nunits+","+npacks+","+weight+","+cunits+","+price);
+    }
+    function updatePrice(no){ 
+      console.log(no);
+      var price = $("#price").val();
+      var trate = $("#taxrate").val();
+      var total = price*no;
+      var per = ((price*no)*trate)/100;
+      var fp = total+per;
+      $("#rate").val(fp);
+      $("#billedqty").val(no);
+      $("#qtycases").val(no);
+    }
+    var i = 1;
+    function addData2Row(){
+      
+var markup = '<tr><td width="10%"><input type="number" name="itemcode[]" class="form-control" value="'+$("#itemcode").val()+'"/></td><td width="20%"><input type="text" name="itemname[]" class="form-control" value="'+$("#itemname").val()+'"/></td><td width="10%"><input type="number" name="qty[]" id="qty'+i+'" class="form-control" value="'+$("#qty").val()+'"/></td><td width="10%"><input type="text" name="price[]" class="form-control" value="'+$("#price").val()+'" onblur="updatePrice1(this.value,'+i+');"/></td><td width="5%"><input type="text" name="billedqty[]" class="form-control" value="'+$("#qty").val()+'"/></td><td width="5%"><input type="text" name="taxrate[]" id="taxrate'+i+'" class="form-control" value="'+$("#taxrate").val()+'"/></td><td width="5%"><input type="text" name="rate[]" id="rate'+i+'" class="form-control" value="'+$("#rate").val()+'"/></td><td width="10%"><input type="text" name="perbox[]" class="form-control" value="'+$("#perbox").val()+'"/></td><td><a href="javascript:void(0);" class="remCF">Remove</a></td></tr>';
+$("table tbody").append(markup);
+$("#oct").val("1");
+$("#itemname").val('');
+$("#qtyunits").val('');
+$("#qtypacks").val('');
+$("#price").val('');
+$("#weight").val('');
+$("#actualqty").val('');
+$("#perbox").val('');
+$("#itemcode").val('');
+$("#qty").val('');
+$("#qtycases").val('');
+$("#billedqty").val('');
+$("#rate").val('');
+    i++;
+    }
+
+function updatePrice1(price,i){
+      var no = $("#qty"+i).val();
+      var trate = $("#taxrate"+i).val();
+      var total = price*no;
+      var per = ((price*no)*trate)/100;
+      var fp = total+per;
+      $("#rate"+i).val(fp);
+      //console.log(price+","+no+","+trate+","+per+","+fp);
+    }
+    </script>
+  </body>
+</html>
