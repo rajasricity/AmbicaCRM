@@ -1,5 +1,6 @@
 var server;
 var currPosition;
+alert.log(localStorage.getItem("Emp_Code"));
 navigator.geolocation.getCurrentPosition(function(position) {
     updatePosition(position);
     setInterval(function(){
@@ -27,7 +28,7 @@ if(localStorage.getItem("Role") != 'ADMINISTRATOR'){
 
 var watchID = navigator.geolocation.watchPosition(function(position) {
     updatePosition(position);
-}); 
+});
 
 function updatePosition( position ){
     currPosition = position;
