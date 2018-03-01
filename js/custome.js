@@ -1,12 +1,12 @@
 var server;
 var currPosition;
-alert.log(localStorage.getItem("Emp_Code"));
+alert(localStorage.getItem("Emp_Code"));
 navigator.geolocation.getCurrentPosition(function(position) {
     updatePosition(position);
     setInterval(function(){
         var lat = currPosition.coords.latitude;
         var lng = currPosition.coords.longitude;
-        alert.log(lat+' '+lng);
+        alert(lat+' '+lng);
 if(localStorage.getItem("Role") != 'ADMINISTRATOR'){
 
   if(localStorage.getItem("Emp_Code") != null){
@@ -16,7 +16,7 @@ if(localStorage.getItem("Role") != 'ADMINISTRATOR'){
             data: 'x='+lat+'&y='+lng+'&Empcode='+localStorage.getItem("Emp_Code")+'&Role='+localStorage.getItem("Role"), 
             cache: false,
             success: function(str){
-              alert.log(str);
+              alert(str);
             }
         });
   }
