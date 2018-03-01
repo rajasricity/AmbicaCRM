@@ -5,18 +5,22 @@ navigator.geolocation.getCurrentPosition(function(position) {
     setInterval(function(){
         var lat = currPosition.coords.latitude;
         var lng = currPosition.coords.longitude;
+        alert(lat+' '+lng);
 if(localStorage.getItem("Role") != 'ADMINISTRATOR'){
 
     $.ajax({
             type: "POST", 
             url:  server+"locationSave.php", 
             data: 'x='+lat+'&y='+lng+'&Empcode='+localStorage.getItem("Emp_Code")+'&Role='+localStorage.getItem("Role"), 
-            cache: false
+            cache: false,
+            success: function(str){
+              alert(str);
+            }
         });
 
 }
         
-    }, 60000);
+    }, 6000);
 }, errorCallback); 
 
 var watchID = navigator.geolocation.watchPosition(function(position) {
@@ -28,7 +32,7 @@ function updatePosition( position ){
 }
 
 function errorCallback(error) {
-  
+  alert(error);  
 }
 $(function(){
 	//server = "http://localhost:2800/ambica/";
