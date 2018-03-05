@@ -113,11 +113,12 @@
     <option value="">Select Distributor</option>
 </select>
 <br>
-<select name="customer" id="customer" class="form-control" required>
+<select name="customer" id="customer" class="form-control">
     <option value="">Select Customer</option>
 </select>
 <br>
 <input type="hidden" name="location" id="location" value=""/>
+<input type="text" name="customer1" id="customer1" class="form-control" placeholder="ADD CUSTOMER"/><br>
 <input type="text" name="saletype" id="saletype" class="form-control" placeholder="SALE ORDER TYPE" readonly="readonly"/><br>
 <span style="color:#000">DELIVERY DATE</span>
 <input type="date" name="deldate" class="form-control" required="required"/><br>
@@ -252,7 +253,7 @@
               },
               error: function(jqXHR, status, error){
             $("#loader").hide();
-            alert(jqHXR+" -- "+status+" -- "+error);
+            alert(jqXHR+" -- "+status+" -- "+error);
        }
            });
         });
