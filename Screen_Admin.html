@@ -130,16 +130,16 @@
         <div id="adminleft"></div>
       </ul>
 
-<div id="myModal" class="modal fade" role="dialog">
+<div id="myModal" class="modal fade" role="dialog"> 
   <div class="modal-dialog">
 
     <!-- Modal content-->
     <div class="modal-content" style="padding: 0px;">
       <div class="modal-header">
-        <h4 class="modal-title" style="color: #000"><i class="fa fa-map-marker"></i> Location</h4>
+        <h4 class="modal-title" style="color: #000"><i class="fa fa-comments"></i> MESSAGES</h4>
       </div>
-      <div class="modal-body" style="color:#000">
-        <p id="locationData"></p>
+      <div class="modal-body" style="color:#000;" id="mb">
+<div id="messages"></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -166,6 +166,7 @@
     <script src="js/main.js"></script>
     <script src="js/custome.js"></script>
     <script>
+
         $(function(){
 if(localStorage.getItem("Role") != null){
   
@@ -183,11 +184,9 @@ $.ajax({
             console.log(data);
                   var toAppend = '';
                      $.each(data,function(i,o){
-                     toAppend += '<div class="grid-item gallery-item-card"><a href="#" class="swipebox no-smoothState" title="This is dummy caption."><img src="img/user.png" alt="image"><div class="gallery-item-header"><div class="gallery-item-author"><span>'+o.Sales_Executive_Name+'</span><span class="small">'+o.Salesmen_Code+'</span></div></div></a><p style="text-align: center"><a class="btn-floating red" href="tel:'+o.Mobile_No_Primary+'"><i class="fa fa-phone"></i></a><a class="btn-floating green" href="#!"><i class="fa fa-comments"></i></a><a class="btn-floating yellow" href="javascript:;" onclick="showLocation(\''+o.Salesmen_Code+'\')"><i class="fa fa-map-marker"></i></a></p></div>';
+                     toAppend += '<div class="grid-item gallery-item-card"><a href="#" class="swipebox no-smoothState" title="This is dummy caption."><img src="img/user.png" alt="image"><div class="gallery-item-header"><div class="gallery-item-author"><span>'+o.Sales_Executive_Name+'</span><span class="small">'+o.Salesmen_Code+'</span></div></div></a><p style="text-align: center"><a class="btn-floating red" href="tel:'+o.Mobile_No_Primary+'"><i class="fa fa-phone"></i></a><a class="btn-floating green" href="javascript:;" onclick="showComments(\''+o.Salesmen_Code+'\')"><i class="fa fa-comments"></i></a><a class="btn-floating yellow" href="javascript:;" onclick="showLocation(\''+o.Salesmen_Code+'\')"><i class="fa fa-map-marker"></i></a></p></div>';
                     });
-
                    $('#sr').append(toAppend);
-
           }
           });
 
@@ -201,7 +200,7 @@ $.ajax({
             console.log(data);
                   var toAppend = '';
                      $.each(data,function(i,o){
-                     toAppend += '<div class="grid-item gallery-item-card"><a href="#" class="swipebox no-smoothState" title="This is dummy caption."><img src="img/user.png" alt="image"><div class="gallery-item-header"><div class="gallery-item-author"><span>'+o.Sales_Executive_Name+'</span><span class="small">'+o.Salesmen_Code+'</span></div></div></a><p style="text-align: center"><a class="btn-floating red" href="tel:'+o.Mobile_No_Primary+'"><i class="fa fa-phone"></i></a><a class="btn-floating green" href="#!"><i class="fa fa-comments"></i></a><a class="btn-floating yellow" href="javascript:;" onclick="showLocation(\''+o.Salesmen_Code+'\')"><i class="fa fa-map-marker"></i></a></p></div>';
+                     toAppend += '<div class="grid-item gallery-item-card"><a href="#" class="swipebox no-smoothState" title="This is dummy caption."><img src="img/user.png" alt="image"><div class="gallery-item-header"><div class="gallery-item-author"><span>'+o.Sales_Executive_Name+'</span><span class="small">'+o.Salesmen_Code+'</span></div></div></a><p style="text-align: center"><a class="btn-floating red" href="tel:'+o.Mobile_No_Primary+'"><i class="fa fa-phone"></i></a><a class="btn-floating green" href="javascript:;" onclick="showComments(\''+o.Salesmen_Code+'\')"><i class="fa fa-comments"></i></a><a class="btn-floating yellow" href="javascript:;" onclick="showLocation(\''+o.Salesmen_Code+'\')"><i class="fa fa-map-marker"></i></a></p></div>';
                     });
 
                    $('#so').append(toAppend);
@@ -219,17 +218,37 @@ $.ajax({
             console.log(data);
                   var toAppend = '';
                      $.each(data,function(i,o){
-                     toAppend += '<div class="grid-item gallery-item-card"><a href="#" class="swipebox no-smoothState" title="This is dummy caption."><img src="img/user.png" alt="image"><div class="gallery-item-header"><div class="gallery-item-author"><span>'+o.Sales_Executive_Name+'</span><span class="small">'+o.Salesmen_Code+'</span></div></div></a><p style="text-align: center"><a class="btn-floating red" href="tel:'+o.Mobile_No_Primary+'"><i class="fa fa-phone"></i></a><a class="btn-floating green" href="#!"><i class="fa fa-comments"></i></a><a class="btn-floating yellow" href="javascript:;" onclick="showLocation(\''+o.Salesmen_Code+'\')"><i class="fa fa-map-marker"></i></a></p></div>';
+                     toAppend += '<div class="grid-item gallery-item-card"><a href="#" class="swipebox no-smoothState" title="This is dummy caption."><img src="img/user.png" alt="image"><div class="gallery-item-header"><div class="gallery-item-author"><span>'+o.Sales_Executive_Name+'</span><span class="small">'+o.Salesmen_Code+'</span></div></div></a><p style="text-align: center"><a class="btn-floating red" href="tel:'+o.Mobile_No_Primary+'"><i class="fa fa-phone"></i></a><a class="btn-floating green" href="javascript:;" onclick="showComments(\''+o.Salesmen_Code+'\')"><i class="fa fa-comments"></i></a><a class="btn-floating yellow" href="javascript:;" onclick="showLocation(\''+o.Salesmen_Code+'\')"><i class="fa fa-map-marker"></i></a></p></div>';
                     });
 
                    $('#aso').append(toAppend);
 
           }
-          });   
+          });  
         });
         function showLocation(ecode){
-        $("#locationData").load(server+"locationData.php?ecode="+ecode);
-        $("#myModal").modal("show");  
+        localStorage.setItem("ecode",ecode);
+        location.href="userLocation.html";
+        }
+
+        function showComments(ecode){
+        $("#myModal").modal("show");
+        $("#messages").load(server+"getMessages.php?ecode="+ecode);
+        }
+        
+        function sendMessage(){
+          var ecode = $("#ecode").val();
+          var msg = $("#message").val();
+          var admin = localStorage.getItem("Emp_Code");
+          var fdata = {"to":ecode,"msg":msg,"from":admin};
+          $.ajax({
+            url:server+"saveMessage.php",
+            data:fdata,
+            type:"post",
+            success: function(str){
+              $("#messages").load(server+"getMessages.php?ecode="+ecode);
+            }
+          });
         }
     </script>
   </body>

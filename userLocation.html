@@ -44,7 +44,15 @@
 	  <link rel="stylesheet" type="text/css" href="css/component1.css" />
     <script src="js/vendor/modernizr-2.7.1.min.js"></script>
     <script src="js/polyfills.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/datatable.css">
+    <style>
+      .modal{
+        max-height: 100%;
+        background-color: transparent;
+        box-shadow: none;
+        top:20px;
+        width: 95%;
+      }
+    </style>
   </head>
   
   <body>
@@ -59,51 +67,23 @@
         </div>
         <h1 class="title">Ambica CRM</h1>
         <div class="open-right" onclick="window.history.back();">
-            <i class="fa fa-arrow-left" style="font-size:20px;margin-top:22px;"></i>
+         <i class="fa fa-arrow-left" style="font-size:20px;margin-top:22px;"></i>
         </div>
       </div>
       <!-- End of Toolbar -->
 
       <!-- Page Contents -->
       <div class="page">
-        <!-- Your contents goes here! -->
-        <div class="grey lighten-4 animated fadeinup">
-            
-            
-                    <!-- Tabs -->
-                    <ul class="tabs m-b-20">
-                      <li class="tab"><a class="active" href="#one"><span id="date"></span></a></li>
-                    </ul>
-                    
-                    <!-- Gallery One -->
-                    <div id="one" class="grid m-t-20">
-            <center><img src="img/preloader.gif" style="width:45px;height:45px;display: none;" id="loader"/></center>
 
-            <div class="table-responsive" style="padding:0px !important;">
-                <table class="table table-bordered" id="my-example">
-                    <thead>
-                        <tr style="background-color: #9C2B76">
-                            <th>Customer</th>
-                            <th>Durbar</th>
-                            <th>Scented</th>
-                        </tr>
-                    </thead>
-                    <tbody style="background-color: #fff;color:#000"></tbody>
-                </table>
-            </div>
+        <div id="locationData" style=";width:100%"></div>
 
-                    </div>
-        
-                    
-                    <div class="clr"></div>
-                  
-                  </div> 
       </div> 
       <!-- End of Page Contents -->
 
       <!-- Sidebars -->
       <!-- Left Sidebar -->
       <ul id="slide-out-left" class="side-nav collapsible">
+        
         <li class="sidenav-avatar" style="background-color: #BCBADE">
           <div class="opacity-overlay-gradient"></div>
           <div class="bottom">
@@ -113,8 +93,9 @@
             <span id="uname"></span></span>
           </div>
         </li>
-        <div id="dbleft"></div>
+        <div id="adminleft"></div>
       </ul>
+
 
     </div>
     <!-- End of Main Container -->
@@ -131,44 +112,52 @@
     <script src="js/vendor/swiper.min.js"></script>
     <script src="js/vendor/materialize.min.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/datatables.js"></script>
     <script src="js/custome.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=false&key=AIzaSyB0WTjQy5o77JCfRCuT0XiR9Jew-nMhIKA" async defer></script>
     <script>
+      function initMap(lat,lng,date,time){
+        console.log(lat);
+        var myLatLng = {lat: parseFloat(lat), lng: parseFloat(lng)};
+
+        var map = new google.maps.Map(document.getElementById('locationData'), {
+          zoom: 17,
+          center: myLatLng
+        });
+
+        var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+          title: 'Hello World!'
+        });
+
+      }
+
         $(function(){
+var h = window.innerHeight-50;
+$("#locationData").height(h);
+showLocation(localStorage.getItem("ecode"));
+
+setInterval(function(){ 
+  console.log("Calling");
+  showLocation(localStorage.getItem("ecode")); }, 5000);
+
 if(localStorage.getItem("Role") != null){
-  /*if(localStorage.getItem('Role') == 'SR'){
-    location.href="Screen_SR.html";
-  }*/
+  
 }else{
     location.href="index.html";
 }
-$("#profile").load(server+"getInfoDb.php?Customer_Code="+localStorage.getItem("Customer_Code"));
-// var table = $('#my-example').DataTable({
-//          "bProcessing": true,
-//          "sAjaxSource": "http://apkser.laksanasoft.com/Login/GetDistributor?Customer_Code="+localStorage.getItem("Customer_Code"),
-//          "aoColumns": [
-//                { mData: 'Created_Date' } ,
-//                { mData: 'Order_No' },
-//                { mData: 'Customer_Code' },
-//                { mData: 'SaleOrdertype' },
-//                { mData: 'Total_Order_Amount' },
-//                { mData: 'Status' }
-//              ],
-//           "bLengthChange": false,
-//       });
-$("#date").html(localStorage.getItem("Date"));
-var table = $('#my-example').DataTable({
-         "bProcessing": true,
-         "sAjaxSource": server+"getReports_Detailed.php?Customer_Id="+localStorage.getItem("User")+"&date="+localStorage.getItem("Date"),
-         "aoColumns": [
-               { mData: 'Customer' } ,
-               { mData: 'Durbar' },
-               { mData: 'Scented' }
-             ],
-          "bLengthChange": false,
-      });
-   
+
         });
+
+        function showLocation(ecode){
+        $.ajax({
+          url:server+"getLatLng.php?ecode="+ecode,
+          success: function(data){
+            console.log(data);
+            initMap(data[0].Lat,data[0].Lng,data[0].Date,data[0].Time);
+          }
+        });
+        }
     </script>
   </body>
 </html>

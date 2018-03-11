@@ -57,8 +57,11 @@
           <i class="fa fa-bars" style="font-size:20px;margin-top:22px;"></i>
         </div>
         <h1 class="title">Ambica CRM</h1>
-        <div class="open-right" id="open-right" data-activates="slide-out">
-          &nbsp;
+        <div class="open-right" onclick="showChat();">
+          <i class="fa fa-bell" style="font-size:20px;margin-top:22px;">
+<span style="position: absolute;background-color: red;color: #fff;top:-10px;padding:5px;border-radius: 20px;font-size: 12px;" id="unreadCount">
+</span>
+          </i>
         </div>
       </div>
       <!-- End of Toolbar -->
@@ -129,6 +132,7 @@ if(localStorage.getItem("Role") != null){
 }else{
     location.href="index.html";
 }
+$("#unreadCount").load(server+"unreadCount.php?ecode="+localStorage.getItem("Emp_Code"));
 var button = document.getElementById('cn-button'),
     wrapper = document.getElementById('cn-wrapper'),
     overlay = document.getElementById('cn-overlay');
@@ -169,6 +173,9 @@ var button = document.getElementById('cn-button'),
   document.addEventListener('click', closeNav);
    
         });
+   function showChat(){
+    location.href="Chat.html";
+  }
     </script>
   </body>
 </html>

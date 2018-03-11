@@ -44,13 +44,24 @@
 	  <link rel="stylesheet" type="text/css" href="css/component1.css" />
     <script src="js/vendor/modernizr-2.7.1.min.js"></script>
     <script src="js/polyfills.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/datatable.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    
   </head>
   
-  <body>
-        
+  <body style="width: 100%;height: 100%vh;">
+
+<div style="position: absolute;background-color: #fff;padding: 10px;width: 100%;bottom: 0px;">
+<br>
+<input type="text" name="message" id="message" class="form-control" placeholder="Message"/>
+<button onclick="sendMessage();" class="btn btn-primary pull-right">SEND</button>
+</div>
+
+<div style="position: absolute;background-color: #fff;padding: 10px;width: 100%;top: 60px;overflow-y: auto;" id="msgbody">
+  <div id="loadMsgs"></div>
+</div>
+
     <!-- Main Container -->
-    <div id="main" class="main">
+    <div id="main" class="main" style="width: 100%;height: 100%vh;border:1px solid red;">
 
       <!-- Toolbar -->
       <div id="toolbar" class="primary-color z-depth-1">
@@ -58,52 +69,23 @@
           <i class="fa fa-bars" style="font-size:20px;margin-top:22px;"></i>
         </div>
         <h1 class="title">Ambica CRM</h1>
-        <div class="open-right" onclick="window.history.back();">
-            <i class="fa fa-arrow-left" style="font-size:20px;margin-top:22px;"></i>
+        <div class="open-right" onclick="showChat();">
+          <i class="fa fa-bell" style="font-size:20px;margin-top:22px;">
+<span style="position: absolute;background-color: red;color: #fff;top:-10px;padding:5px;border-radius: 20px;font-size: 12px;" id="unreadCount">
+</span>
+          </i>
         </div>
       </div>
       <!-- End of Toolbar -->
 
       <!-- Page Contents -->
-      <div class="page">
-        <!-- Your contents goes here! -->
-        <div class="grey lighten-4 animated fadeinup">
-            
-            
-                    <!-- Tabs -->
-                    <ul class="tabs m-b-20">
-                      <li class="tab"><a class="active" href="#one"><span id="date"></span></a></li>
-                    </ul>
-                    
-                    <!-- Gallery One -->
-                    <div id="one" class="grid m-t-20">
-            <center><img src="img/preloader.gif" style="width:45px;height:45px;display: none;" id="loader"/></center>
 
-            <div class="table-responsive" style="padding:0px !important;">
-                <table class="table table-bordered" id="my-example">
-                    <thead>
-                        <tr style="background-color: #9C2B76">
-                            <th>Customer</th>
-                            <th>Durbar</th>
-                            <th>Scented</th>
-                        </tr>
-                    </thead>
-                    <tbody style="background-color: #fff;color:#000"></tbody>
-                </table>
-            </div>
-
-                    </div>
-        
-                    
-                    <div class="clr"></div>
-                  
-                  </div> 
-      </div> 
       <!-- End of Page Contents -->
 
       <!-- Sidebars -->
       <!-- Left Sidebar -->
       <ul id="slide-out-left" class="side-nav collapsible">
+        
         <li class="sidenav-avatar" style="background-color: #BCBADE">
           <div class="opacity-overlay-gradient"></div>
           <div class="bottom">
@@ -113,7 +95,7 @@
             <span id="uname"></span></span>
           </div>
         </li>
-        <div id="dbleft"></div>
+        <div id="srleft"></div>
       </ul>
 
     </div>
@@ -131,44 +113,44 @@
     <script src="js/vendor/swiper.min.js"></script>
     <script src="js/vendor/materialize.min.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/datatables.js"></script>
     <script src="js/custome.js"></script>
+  
     <script>
         $(function(){
+console.log(localStorage.getItem("Emp_Code"));
+var h = window.innerHeight-210;
+$("#msgbody").height(h);
+$("#loadMsgs").load(server+"getMessages1.php?ecode="+localStorage.getItem("Emp_Code"));        
 if(localStorage.getItem("Role") != null){
-  /*if(localStorage.getItem('Role') == 'SR'){
-    location.href="Screen_SR.html";
-  }*/
+  
 }else{
     location.href="index.html";
 }
-$("#profile").load(server+"getInfoDb.php?Customer_Code="+localStorage.getItem("Customer_Code"));
-// var table = $('#my-example').DataTable({
-//          "bProcessing": true,
-//          "sAjaxSource": "http://apkser.laksanasoft.com/Login/GetDistributor?Customer_Code="+localStorage.getItem("Customer_Code"),
-//          "aoColumns": [
-//                { mData: 'Created_Date' } ,
-//                { mData: 'Order_No' },
-//                { mData: 'Customer_Code' },
-//                { mData: 'SaleOrdertype' },
-//                { mData: 'Total_Order_Amount' },
-//                { mData: 'Status' }
-//              ],
-//           "bLengthChange": false,
-//       });
-$("#date").html(localStorage.getItem("Date"));
-var table = $('#my-example').DataTable({
-         "bProcessing": true,
-         "sAjaxSource": server+"getReports_Detailed.php?Customer_Id="+localStorage.getItem("User")+"&date="+localStorage.getItem("Date"),
-         "aoColumns": [
-               { mData: 'Customer' } ,
-               { mData: 'Durbar' },
-               { mData: 'Scented' }
-             ],
-          "bLengthChange": false,
-      });
+
+$.ajax({
+  url:server+"updateChatStatus.php?ecode="+localStorage.getItem("Emp_Code"),
+  success: function(str){
+    $("#unreadCount").load(server+"unreadCount.php?ecode="+localStorage.getItem("Emp_Code"));
+  }
+});
    
         });
-    </script>
+  
+  function sendMessage(){
+          var ecode = localStorage.getItem("Emp_Code");
+          var msg = $("#message").val();
+          var admin = '';
+          var fdata = {"to":admin,"msg":msg,"from":ecode};
+          $.ajax({
+            url:server+"saveMessage.php",
+            data:fdata,
+            type:"post",
+            success: function(str){
+              $("#loadMsgs").load(server+"getMessages1.php?ecode="+localStorage.getItem("Emp_Code"));
+              $("#message").val('');
+            }
+          });
+        }
+  </script>
   </body>
 </html>

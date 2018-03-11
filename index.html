@@ -119,7 +119,10 @@ if(localStorage.getItem("Role") != null){
   if(localStorage.getItem('Role') == 'Distributor'){
     location.href="Screen_DB.html";
   }
-}
+  if(localStorage.getItem('Role') == 'ADMINISTRATOR'){
+    location.href="Screen_Admin.html";
+  }
+      }
 
         });
     </script>
