@@ -240,7 +240,14 @@ $.ajax({
           var ecode = $("#ecode").val();
           var msg = $("#message").val();
           var admin = localStorage.getItem("Emp_Code");
+          if($('input[type=checkbox]').prop('checked')){
+            ecode = "*";
+          }else{
+            
+          }
           var fdata = {"to":ecode,"msg":msg,"from":admin};
+          if(msg != ''){
+
           $.ajax({
             url:server+"saveMessage.php",
             data:fdata,
@@ -249,6 +256,9 @@ $.ajax({
               $("#messages").load(server+"getMessages.php?ecode="+ecode);
             }
           });
+
+          }
+
         }
     </script>
   </body>
