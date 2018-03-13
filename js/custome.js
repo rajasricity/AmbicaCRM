@@ -55,7 +55,7 @@ if (navigator.geolocation) {
     }
 
 function checkPosition(position) {
-
+alert(position.coords.latitude);
 }
 
 $(function(){
