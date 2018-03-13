@@ -45,7 +45,7 @@ function updatePosition( position ){
 }
 
 function errorCallback(error) {
-  alert(error);  
+  $("#fgps").show();   
 }
 $(function(){
 	//server = "http://localhost:2800/ambica/";
