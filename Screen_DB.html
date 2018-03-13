@@ -76,7 +76,7 @@
 <ul class="nav nav-tabs" style="background-color: #D0ABE4;">
   <li class="active"><a data-toggle="tab" href="#input">SR ORDERS</a></li>
   <li><a data-toggle="tab" href="#output">COMPANY ORDERS</a></li>
-  <li><a data-toggle="tab" href="#invoice">INVOICED</a></li>
+  <li><a data-toggle="tab" href="#invoice">INVOICES</a></li>
 </ul>
 
 <div class="tab-content">
@@ -104,7 +104,7 @@
   <div id="output" class="tab-pane fade">
   
 <div class="table-responsive" style="padding:0px !important;">
-<table class="table table-bordered" id="my-example1">
+<table class="table table-bordered" id="my-example1" style="width:100%">
     <thead>
         <tr style="background-color: #9C2B76">
             <th>Date</th>
@@ -288,7 +288,7 @@ var table3 = $('#my-example2').DataTable({
       });
 $('#my-example2 tbody').on('click', 'tr', function () {
         var data = table3.row(this).data();
-        localStorage.setItem("Order",data.Order_No);
+        localStorage.setItem("Order",data.Invoice_No);
         location.href="OrderInvoiced.html";
     } );
 

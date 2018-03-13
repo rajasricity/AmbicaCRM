@@ -92,11 +92,15 @@
 <input type="hidden" name="oid" id="oid"/>
 <input type="hidden" name="oct" id="oct" value="0"/>
 <div id="second">
+<select name="customer" id="customer" class="form-control">
+    <option value="">Select Customer</option>
+</select>
+<br>
 <div class="table-responsive" style="z-index:999">
   <table class="table table-bordered" style="width:1500px;color:#000;">
 <thead>
     <tr class="info">
-        <th>Item Code</th><th>Item Name</th><th>Quantity</th><th>Price</th><th>Billed Qty</th><th>Tax Rate</th><th>Rate</th><th>Per</th><th>Remove</th>
+        <th>Item Name</th><th>Quantity</th><th>Price</th><th>Billed Qty</th><th>Tax Rate</th><th>Rate</th><th>Per</th><th>Remove</th>
     </tr>
 </thead>
 <tbody></tbody>
@@ -104,7 +108,7 @@
 <br>
 </div>
 </div>
-<input type="submit" name="submit" class="btn btn-primary" value="CREATE ORDER"/>
+<input type="submit" name="submit" class="btn btn-primary" value="CREATE INVOICE"/>
 <center><img src="img/preloader.gif" style="width:40px;height:40px;display:none" id="loader"/></center>
 </form>
 </div>
@@ -195,6 +199,23 @@
         });
         $("#dis").val(localStorage.getItem("Customer_Code"));
         $("#oid").val(localStorage.getItem("Order"));
+
+        $.ajax({
+          url:server+"getCustomers.php",
+          data:{"Customer_Id":localStorage.getItem("Customer_Code")},
+          type:"POST",
+          success:function(data){
+            console.log(data);
+            $("#customer").empty();
+                  var toAppend = '';
+                     $.each(data,function(i,o){
+                     toAppend += '<option value="'+o.Customer_Id+'">'+o.Customer_Name+'</option>';
+                    });
+
+                   $('#customer').append(toAppend);
+          }
+          });
+
         $("#corder").on('submit', function(e){
            e.preventDefault();
 
@@ -295,7 +316,7 @@ var fdata= $("#corder").serialize();
     var i = 1;
     function addData2Row(){
       
-var markup = '<tr><td width="10%"><input type="number" name="itemcode[]" class="form-control" value="'+$("#itemcode").val()+'"/></td><td width="20%"><input type="text" name="itemname[]" class="form-control" value="'+$("#itemname").val()+'"/></td><td width="10%"><input type="number" name="qty[]" id="qty'+i+'" class="form-control" value="'+$("#qty").val()+'"/></td><td width="10%"><input type="text" name="price[]" class="form-control" value="'+$("#price").val()+'" onblur="updatePrice1(this.value,'+i+');"/></td><td width="5%"><input type="text" name="billedqty[]" class="form-control" value="'+$("#qty").val()+'"/></td><td width="5%"><input type="text" name="taxrate[]" id="taxrate'+i+'" class="form-control" value="'+$("#taxrate").val()+'"/></td><td width="5%"><input type="text" name="rate[]" id="rate'+i+'" class="form-control" value="'+$("#rate").val()+'"/></td><td width="10%"><input type="text" name="perbox[]" class="form-control" value="'+$("#perbox").val()+'"/></td><td><a href="javascript:void(0);" class="remCF">Remove</a></td></tr>';
+var markup = '<tr><td width="20%"><input type="hidden" name="itemcode[]" class="form-control" value="'+$("#itemcode").val()+'"/><input type="text" name="itemname[]" class="form-control" value="'+$("#itemname").val()+'"/></td><td width="10%"><input type="number" name="qty[]" id="qty'+i+'" class="form-control" value="'+$("#qty").val()+'"/></td><td width="10%"><input type="text" name="price[]" class="form-control" value="'+$("#price").val()+'" onblur="updatePrice1(this.value,'+i+');"/></td><td width="5%"><input type="text" name="billedqty[]" class="form-control" value="'+$("#qty").val()+'"/></td><td width="5%"><input type="text" name="taxrate[]" id="taxrate'+i+'" class="form-control" value="'+$("#taxrate").val()+'"/></td><td width="5%"><input type="text" name="rate[]" id="rate'+i+'" class="form-control" value="'+$("#rate").val()+'"/></td><td width="10%"><input type="text" name="perbox[]" class="form-control" value="'+$("#perbox").val()+'"/></td><td><a href="javascript:void(0);" class="remCF">Remove</a></td></tr>';
 $("table tbody").append(markup);
 $("#oct").val("1");
 $("#itemname").val('');
