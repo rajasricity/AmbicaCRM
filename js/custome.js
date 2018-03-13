@@ -47,6 +47,17 @@ function updatePosition( position ){
 function errorCallback(error) {
   $("#fgps").show();   
 }
+
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(checkPosition,errorCallback);
+    } else {
+  $("#fgps").show();
+    }
+
+function checkPosition(position) {
+
+}
+
 $(function(){
 	//server = "http://localhost:2800/ambica/";
   server = "http://ambicamobile.laksanasoft.com/mobile/";
