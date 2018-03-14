@@ -61,6 +61,12 @@ alert();
 alert(position.coords.latitude);
 }
 
+if(currPosition.coords.latitude){
+ alert(currPosition.coords.latitude);
+}else{
+  alert();
+}
+
 $(function(){
 	//server = "http://localhost:2800/ambica/";
   server = "http://ambicamobile.laksanasoft.com/mobile/";
