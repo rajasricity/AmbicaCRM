@@ -53,9 +53,26 @@
     <!-- Main Container -->
     <div id="main" class="main">
 
-<div id="fgps" style="z-index: 9999;top:30%;position: absolute;width:100%;margin:0 auto;display:none">
+<div id="fgps" class="modal fade" role="dialog" style="background-color: transparent;"> 
   <div class="modal-dialog">
     <!-- Modal content-->
+    <div class="modal-content" style="padding: 0px;">
+      <div class="modal-header">
+        <h4 class="modal-title" style="color: #000"><i class="fa fa-comments"></i> MESSAGES</h4>
+      </div>
+      <div class="modal-body" style="color:#000;" id="mb">
+<div id="messages"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- <div id="fgps" style="z-index: 9999;top:30%;position: absolute;width:100%;margin:0 auto;display:none">
+  <div class="modal-dialog">
     <div class="modal-content" style="padding:0px;">
       <div class="modal-header" style="background-color: #905FAA;color:#fff">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -69,14 +86,14 @@
     </div>
 
   </div>
-</div>
+</div> --> 
 
       <!-- Toolbar -->
       <div id="toolbar" class="primary-color z-depth-1">
         <div class="open-left" id="open-left" data-activates="slide-out-left">
           <i class="fa fa-bars" style="font-size:20px;margin-top:22px;"></i>
         </div>
-        <h1 class="title">Ambica CRM</h1>
+        <!-- <h1 class="title">Ambica CRM</h1> -->
         <div class="open-right" onclick="showChat();">
           <i class="fa fa-bell" style="font-size:20px;margin-top:22px;">
 <span style="position: absolute;background-color: red;color: #fff;top:-10px;padding:5px;border-radius: 20px;font-size: 12px;" id="unreadCount">
@@ -232,6 +249,7 @@ $.ajax({
     </script>
     <script>
         $(function(){
+$("#fgps").modal("show");
  $("#unreadCount").load(server+"unreadCount.php?ecode="+localStorage.getItem("Emp_Code"));         
 if(localStorage.getItem("Role") != null){
   
