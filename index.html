@@ -106,6 +106,19 @@
     <script src="js/custome.js"></script>
     <script>
         $(document).ready(function(){
+
+var startPos,startPosLat;
+  var geoSuccess = function(position) {
+    startPos = position;
+    startPosLat = startPos.coords.latitude;
+    alert(startPosLat);
+  };
+  navigator.geolocation.getCurrentPosition(geoSuccess,errorFunction);
+
+  function errorFunction(error){
+    alert(error);
+  }
+  
 if(localStorage.getItem("Role") != null){
   if(localStorage.getItem('Role') == 'SR'){
     location.href="Screen_SR.html";
