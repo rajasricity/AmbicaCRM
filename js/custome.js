@@ -55,6 +55,7 @@ if (navigator.geolocation) {
     }
 
 function checkPosition(position) {
+alert();
 alert(position.coords.latitude);
 }
 
