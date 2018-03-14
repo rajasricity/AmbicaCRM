@@ -45,6 +45,7 @@ function updatePosition( position ){
 }
 
 function errorCallback(error) {
+	alert();
   $("#fgps").show();   
 }
 
