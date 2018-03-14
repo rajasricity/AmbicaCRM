@@ -51,6 +51,7 @@ function errorCallback(error) {
 if (navigator.geolocation) {
   navigator.geolocation.getCurrentPosition(checkPosition,errorCallback);
     } else {
+	alert();
   $("#fgps").show();
     }
 
