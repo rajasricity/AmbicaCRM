@@ -1,6 +1,33 @@
 var server;
 var currPosition;
 
+var geolocation = {};
+getLocation();
+
+function printLocation(){
+    if(typeof geolocation.lat === "undefined" || typeof geolocation.long === "undefined"){
+        console.log("We cannot get the geolocation (too fast? user/browser blocked it?)");
+        // Get location by IP or simply do nothing
+    }
+    else{
+        console.log("LATITUDE => "+geolocation.lat);
+        console.log("LONGITUDE => "+geolocation.long);
+    }
+}
+
+function getLocation() {
+    // If the user allow us to get the location from the browser
+    if(window.location.protocol == "https:" && navigator.geolocation)
+        navigator.geolocation.getCurrentPosition(function(position){
+            geolocation["lat"] = position.coords.latitude;
+            geolocation["long"] = position.coords.longitude;
+            printLocation(); // Second time, will be return the location correctly
+        });
+    else{
+        // We cannot access to the geolocation
+    }
+}
+
 navigator.geolocation.getCurrentPosition(function(position) {
     updatePosition(position);
 
@@ -61,13 +88,8 @@ alert();
 alert(position.coords.latitude);
 }
 
-if(currPosition.coords.latitude){
- alert(currPosition.coords.latitude);
-}else{
-  alert();
-}
-
 $(function(){
+	printLocation();
 	//server = "http://localhost:2800/ambica/";
   server = "http://ambicamobile.laksanasoft.com/mobile/";
 	connect();
