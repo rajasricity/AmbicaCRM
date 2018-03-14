@@ -107,18 +107,9 @@
     <script>
         $(document).ready(function(){
 
-var startPos,startPosLat;
-  var geoSuccess = function(position) {
-    startPos = position;
-    startPosLat = startPos.coords.latitude;
-    alert(startPosLat);
-  };
-  navigator.geolocation.getCurrentPosition(geoSuccess,errorFunction);
+var options = {maximumAge: 0, timeout: 10000, enableHighAccuracy:true};
+navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
 
-  function errorFunction(error){
-    alert(error);
-  }
-  
 if(localStorage.getItem("Role") != null){
   if(localStorage.getItem('Role') == 'SR'){
     location.href="Screen_SR.html";
@@ -138,6 +129,12 @@ if(localStorage.getItem("Role") != null){
       }
 
         });
+  function onSuccess(position){
+    alert("In Success");
+  }
+  function onError(error){
+    alert("In Error");
+  }
     </script>
   </body>
 </html>
